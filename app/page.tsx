@@ -1,9 +1,10 @@
 import {Box} from "@mui/material";
+import MainPage from "../components/pages/main/MainPage";
 
 const Home = () => {
   return (
     <Box>
-       з новим роком вас вітаю
+       <MainPage/>
     </Box>
   )
 }
