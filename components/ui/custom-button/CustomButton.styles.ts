@@ -7,11 +7,7 @@ export const button = (
 ): SxProps<Theme> => ({
 	borderRadius: '5px',
 	padding: '6px 20px',
-	textTransform: 'none',
-	fontSize: '20px',
-	fontWeight: '300',
-	lineHeight: '30px',
-	fontFamily: 'Mulish',
+	height: 'fit-content',
 	...(variant === ButtonVariant.OUTLINED && {
 		color: color,
 		border: `1px solid ${color}`,
@@ -31,3 +27,11 @@ export const button = (
 		},
 	}),
 });
+
+export const text: SxProps<Theme> = {
+	textTransform: 'none',
+	fontSize: '20px',
+	fontWeight: '300',
+	lineHeight: '30px',
+	fontFamily: 'Mulish',
+}

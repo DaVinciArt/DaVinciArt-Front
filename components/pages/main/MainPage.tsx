@@ -7,11 +7,11 @@ import {ColectionImage} from "../../../types/ColectionImage";
 const MainPage = () => {
   let images: ColectionImage[] = [
     {
-      url: '/public/hands.jpeg',
+      url: 'https://images.panda.org/assets/images/pages/welcome/orangutan_1600x1000_279157.jpg',
       label: 'first',
     },
     {
-      url: '/public/olive-trees.jpeg',
+      url: 'https://deep-image.ai/blog/content/images/2022/09/underwater-magic-world-8tyxt9yz.jpeg',
       label: 'second',
     },
   ]

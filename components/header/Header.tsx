@@ -14,8 +14,8 @@ const Header = () => {
           </Typography>
         </Link>
         <Box sx={styles.controls}>
-          <CustomButton sx={{borderRadius: '25px'}} variant={ButtonVariant.OUTLINED}>Login</CustomButton>
-          <CustomButton sx={{borderRadius: '25px'}} variant={ButtonVariant.OUTLINED}>Register</CustomButton>
+          <CustomButton text={'Login'} sx={{borderRadius: '25px'}} variant={ButtonVariant.OUTLINED}/>
+          <CustomButton text={'Register'} sx={{borderRadius: '25px'}} variant={ButtonVariant.OUTLINED}/>
         </Box>
       </Box>
     </header>
