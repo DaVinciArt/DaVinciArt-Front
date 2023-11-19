@@ -2,9 +2,9 @@
 
 import {ColectionImage} from '../../types/ColectionImage'
 import React, {FC, useState} from "react";
-import {Box, Typography, useTheme} from "@mui/material";
-import CustomButton from "../ui/custom-button/CustomButton";
-import {ButtonVariant} from "../ui/custom-button/types";
+import {Box, Typography} from "@mui/material";
+import {ArrowLeftCircleIcon, ArrowRightCircleIcon} from "@heroicons/react/24/outline";
+
 import * as styles from './Carousel.styles'
 
 interface CarouselProps {
@@ -28,28 +28,23 @@ const Carousel: FC<CarouselProps> = ({ images })=> {
       setActiveStep(activeStep - 1)
   };
 
-  const handleStepChange = (step: number) => {
-    setActiveStep(step);
-  };
   return (
     <Box sx={styles.container}>
-      <CustomButton
-        text={'Prev'}
-        variant={ButtonVariant.CONTAINED}
-        onClick={handleBack}
-      />
-      <img
-        width={600}
-        height={400}
-        src={images[activeStep].url}
-        alt={images[activeStep].label}
-      />
-      <Typography>{activeStep}</Typography>
-      <CustomButton
-        text={'Next'}
-        variant={ButtonVariant.CONTAINED}
-        onClick={handleNext}
-      />
+      <Box sx={styles.carouselControls}>
+        <ArrowLeftCircleIcon onClick={handleBack}/>
+      </Box>
+      <Box sx={styles.collectionContainer}>
+        <img
+          src={images[activeStep].url}
+          alt={images[activeStep].label}
+          style={{width: '60vw', height: 'auto', borderRadius: '7px'}}
+        />
+        <Typography sx={styles.collectionHeading}>{images[activeStep].label}</Typography>
+        <Typography sx={styles.collectionAuthor}>{images[activeStep].label}</Typography>
+      </Box>
+      <Box sx={styles.carouselControls}>
+        <ArrowRightCircleIcon onClick={handleNext}/>
+      </Box>
     </Box>
   );
 };
