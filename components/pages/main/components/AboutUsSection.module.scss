@@ -1,0 +1,10 @@
+.contactsLink {
+  font-family: 'Cormorant Infant', serif;
+  text-decoration: 1px underline;
+  font-size: 20px;
+  text-underline-offset: 5px;
+
+  &:hover {
+    color: #5c636a;
+  }
+}

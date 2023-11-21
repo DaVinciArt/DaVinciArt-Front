@@ -1,25 +1,18 @@
-import {SxProps, Theme} from "@mui/material";
+import {SxProps, Theme} from "@mui/material/styles";
 
-export const wrapper: SxProps<Theme> = {
-  backgroundColor: '#FFF9EC',
-  padding: '0 20px',
+export const mainPageStyles: SxProps<Theme> = {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '50px',
 }
 
-export const content: SxProps<Theme> = {
-  maxWidth: '1000px',
-  padding: '25px 0',
+export const carouselSection: SxProps<Theme> = {
+  width: 'fit-content',
   margin: '0 auto',
-
+  padding: '0 20px'
 }
 
-export const header: SxProps<Theme> = {
-  fontFamily: 'Cormorant Infant',
-  fontSize: '2.5rem',
-  marginBottom: '20px',
+export const contactsButton: SxProps<Theme> = {
+  width: '100%',
+  margin: '15px 0',
 }
-
-export const text: SxProps<Theme> = {
-  fontFamily: 'Mulish',
-  marginBottom: '16px',
-  textAlign: 'justify',
-};
