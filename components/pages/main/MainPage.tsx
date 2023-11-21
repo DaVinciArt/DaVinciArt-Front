@@ -29,7 +29,7 @@ const MainPage = () => {
           variant={ButtonVariant.OUTLINED}
           color={ButtonColor.SECONDARY}
           href={'/'}
-          sx={styles.сontactsButton}
+          sx={styles.contactsButton}
         />
       </Box>
     </Box>

@@ -12,7 +12,7 @@ export const carouselSection: SxProps<Theme> = {
   padding: '0 20px'
 }
 
-export const сontactsButton: SxProps<Theme> = {
+export const contactsButton: SxProps<Theme> = {
   width: '100%',
   margin: '15px 0',
 }
