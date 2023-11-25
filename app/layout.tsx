@@ -1,6 +1,9 @@
-import Header from "../components/header/Header";
 import React from "react";
-import './globals.css'
+
+import Header from "../components/common/header/Header";
+import Footer from "../components/common/footer/Footer";
+
+import './globals.css';
 
 export const metadata = {
   title: 'Next.js',
@@ -19,11 +22,12 @@ const RootLayout =({
           href="https://fonts.googleapis.com/css2?family=Cormorant+Infant:wght@300;400;500;600;700&family=Mulish:wght@200;300;400;500;600&display=swap"
           rel="stylesheet"
         />
-        <title></title>
+        <title>Da Vinci</title>
       </head>
       <body>
       <Header/>
       {children}
+      <Footer/>
       </body>
     </html>
   )
