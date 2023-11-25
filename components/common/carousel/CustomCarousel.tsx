@@ -3,8 +3,8 @@
 import {ColectionImage} from '../../../types/ColectionImage'
 import React, {FC} from "react";
 import {Box, Typography} from "@mui/material";
-import Carousel, {PagingDots} from "nuka-carousel";
-
+import Carousel from "nuka-carousel";
+import Image from "next/image";
 
 import * as sxStyles from './CustomCarousel.styles'
 import styles from './CustomCarousel.module.scss'
@@ -12,8 +12,7 @@ import {
   renderBottomCenterControl,
   renderCenterLeftControl,
   renderCenterRightControl
-} from "./components/controls/controls";
-import Image from "next/image";
+} from './components/controls/controls';
 
 interface CarouselProps {
   images: ColectionImage[],

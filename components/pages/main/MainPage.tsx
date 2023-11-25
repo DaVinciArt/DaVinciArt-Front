@@ -5,8 +5,8 @@ import {ColectionImage} from "../../../types/ColectionImage";
 import * as styles from './MainPage.styles';
 import CustomButton from "../../ui/custom-button/CustomButton";
 import {ButtonColor, ButtonVariant} from "../../ui/custom-button/types";
-import AboutUsSection from "./components/about-us-section/AboutUsSection";
-import ArtistCard from "./components/artist-card/ArtistCard";
+import AboutUsSection from './components/about-us-section/AboutUsSection';
+import ArtistCard from './components/artist-card/ArtistCard';
 import hands from '../../../public/images/hands.jpeg';
 import trees from '../../../public/images/olive-trees.jpeg';
 import queen from '../../../public/images/queen.jpeg';
@@ -66,6 +66,7 @@ const MainPage = () => {
               'The Creation of Adam (c. 1512)',
               'The Entombment (c. 1501)',
               'David (c. 1504)',
+
             ]}
           />
           <ArtistCard
@@ -79,6 +80,7 @@ const MainPage = () => {
               'Spider of the Evening (c. 1940)',
             ]}
           />
+
         </Box>
       </Box>
     </Box>
