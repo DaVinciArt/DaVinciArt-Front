@@ -1,16 +1,16 @@
 import {SxProps, Theme} from "@mui/material/styles";
 
 export const container: SxProps<Theme> = {
-  width: '100%',
+  width: 'fit-content',
 	display: 'flex',
   alignItems: 'center',
+
 };
 
 export const carouselControls: SxProps<Theme> = {
-  width: '60px',
-  display: {
-    xs: 'none',
-    sm: 'block'
+  width: {
+    xs: '40px',
+    sm: '60px'
   },
   height: 'fit-content',
   color: '#5D2A42',
@@ -24,9 +24,9 @@ export const carouselControls: SxProps<Theme> = {
 
 export const collectionContainer: SxProps<Theme> = {
   display: 'flex',
-  width: '100%',
   flexDirection: 'column',
   alignItems: 'center',
+  padding: '0 20px',
 };
 
 export const collectionHeading: SxProps<Theme> = {
