@@ -1,4 +1,7 @@
+import {StaticImageData} from "next/image";
+
 export type ColectionImage = {
-  url: string,
+  url: StaticImageData,
   label: string,
+  author: string,
 }
