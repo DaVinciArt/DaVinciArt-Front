@@ -16,7 +16,7 @@ interface MobileDrawerProps {
 const MobileDrawer: FC<MobileDrawerProps> = ({
   sx = {},
 }) => {
-  const [state, setState] = React.useState(false);
+  const [drawerState, setDrawerState] = React.useState(false);
 
   const toggleDrawer =
     (open: boolean) =>
@@ -30,7 +30,7 @@ const MobileDrawer: FC<MobileDrawerProps> = ({
           return;
         }
 
-        setState(open );
+        setDrawerState(open);
       };
 
   return (
@@ -40,7 +40,7 @@ const MobileDrawer: FC<MobileDrawerProps> = ({
       </Box>
       <SwipeableDrawer
         anchor='top'
-        open={state}
+        open={drawerState}
         onClose={toggleDrawer(false)}
         onOpen={toggleDrawer(true)}
 
@@ -52,9 +52,13 @@ const MobileDrawer: FC<MobileDrawerProps> = ({
             </Typography>
           </Link>
           <Box sx={styles.drawerControls}>
-            <CustomButton text={'Login'} sx={styles.controlsButton} variant={ButtonVariant.OUTLINED}/>
+            <Link href={'/login'} onClick={() => setDrawerState(false)}>
+              <CustomButton text={'Login'} sx={styles.controlsButton} variant={ButtonVariant.OUTLINED}/>
+            </Link>
             <Divider orientation='vertical' flexItem sx={styles.controlsDivider}/>
-            <CustomButton text={'Register'} sx={styles.controlsButton} variant={ButtonVariant.OUTLINED}/>
+            <Link href={'/register'} onClick={() => setDrawerState(false)}>
+              <CustomButton text={'Register'} sx={styles.controlsButton} variant={ButtonVariant.OUTLINED}/>
+            </Link>
           </Box>
         </Box>
       </SwipeableDrawer>

@@ -1,13 +1,13 @@
 "use client"
 
-import {ColectionImage} from '../../../types/ColectionImage'
+import {ColectionImage} from '../../../../types/ColectionImage';
 import React, {FC} from "react";
 import {Box, Typography} from "@mui/material";
 import Carousel from "nuka-carousel";
 import Image from "next/image";
 
-import * as sxStyles from './CustomCarousel.styles'
-import styles from './CustomCarousel.module.scss'
+import * as sxStyles from './CustomCarousel.styles';
+import styles from './CustomCarousel.module.scss';
 import {
   renderBottomCenterControl,
   renderCenterLeftControl,

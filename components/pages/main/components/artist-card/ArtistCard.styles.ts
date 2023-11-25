@@ -42,7 +42,6 @@ export const artistName: SxProps<Theme> = {
 }
 
 export const arts: SxProps<Theme> = {
-  fontFamily: 'Mulish',
   fontSize: {
     xs: '13px',
     sm: '16px',

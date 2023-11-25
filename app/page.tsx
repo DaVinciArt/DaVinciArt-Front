@@ -1,12 +1,9 @@
-import {Box} from "@mui/material";
 import MainPage from "../components/pages/main/MainPage";
 
-const Home = () => {
+const Main = () => {
   return (
-    <Box>
-       <MainPage/>
-    </Box>
+    <MainPage/>
   )
 }
 
-export default Home;
+export default Main;

@@ -33,5 +33,4 @@ export const text: SxProps<Theme> = {
 	fontSize: '20px',
 	fontWeight: '300',
 	lineHeight: '30px',
-	fontFamily: 'Mulish',
 }
