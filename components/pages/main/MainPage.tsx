@@ -66,6 +66,7 @@ const MainPage = () => {
               'The Creation of Adam (c. 1512)',
               'The Entombment (c. 1501)',
               'David (c. 1504)',
+
             ]}
           />
           <ArtistCard
