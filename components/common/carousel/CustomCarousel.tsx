@@ -13,6 +13,7 @@ import {
   renderCenterLeftControl,
   renderCenterRightControl
 } from "./components/controls/controls";
+import Image from "next/image";
 
 interface CarouselProps {
   images: ColectionImage[],
@@ -32,10 +33,10 @@ const CustomCarousel: FC<CarouselProps> = ({ images })=> {
       renderCenterRightControls={renderCenterRightControl}
     >
       {images && images.map((image, index) => (
-        <Box sx={sxStyles.collectionContainer}>
-          <img key={index} src={image.url} alt={image.label} className={styles['image']}/>
-          <Typography sx={sxStyles.collectionHeading}>{image.label}</Typography>
-          <Typography sx={sxStyles.collectionAuthor}>{image.label}</Typography>
+        <Box key={index} sx={sxStyles.collectionContainer}>
+          <Image src={image.url} alt={image.label} className={styles['image']}/>
+          <Typography sx={sxStyles.collectionHeading}>Collection "{image.label}"</Typography>
+          <Typography sx={sxStyles.collectionAuthor}>Author: {image.author}</Typography>
         </Box>
       ))}
     </Carousel>
