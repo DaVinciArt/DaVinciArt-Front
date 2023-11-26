@@ -1,10 +1,10 @@
 import {Box, Typography} from "@mui/material";
-import CustomCarousel from "../../common/carousel/CustomCarousel";
+import CustomCarousel from "../../common/ui/carousel/CustomCarousel";
 import {ColectionImage} from "../../../types/ColectionImage";
 
 import * as styles from './MainPage.styles';
-import CustomButton from "../../ui/custom-button/CustomButton";
-import {ButtonColor, ButtonVariant} from "../../ui/custom-button/types";
+import CustomButton from "../../common/ui/custom-button/CustomButton";
+import {ButtonColor, ButtonVariant} from "../../common/ui/custom-button/types";
 import AboutUsSection from './components/about-us-section/AboutUsSection';
 import ArtistCard from './components/artist-card/ArtistCard';
 import hands from '../../../public/images/hands.jpeg';
@@ -38,7 +38,7 @@ const MainPage = () => {
         <CustomButton
           text={'To other collections'}
           variant={ButtonVariant.OUTLINED}
-          color={ButtonColor.SECONDARY}
+          color={ButtonColor.LINK}
           href={'/'}
           sx={styles.contactsButton}
         />

@@ -9,7 +9,7 @@ export const aboutHeader: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
   fontSize: {
     xs: 'calc(1.5rem + 1.5vw)',
-    lg: '2.5rem',
+    lg: '2.6rem',
   },
   marginBottom: {
     xs: '15px',
@@ -29,7 +29,6 @@ export const aboutContent: SxProps<Theme> = {
 }
 
 export const aboutText: SxProps<Theme> = {
-  fontFamily: 'Mulish',
   marginBottom: '16px',
   textAlign: 'justify',
   fontSize: {
