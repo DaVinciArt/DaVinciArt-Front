@@ -5,12 +5,13 @@ export const formContainer: SxProps<Theme> = {
   flexDirection: 'column',
   maxWidth: '800px',
   margin: '0 auto',
-  padding: '40px 20px'
+  padding: '40px 20px 80px'
 }
 
 export const formHeader: SxProps<Theme> = {
   textAlign: 'center',
   fontWeight: 300,
+  mt: '15px',
   fontSize: {
     xs: 'calc(1.325rem + 0.9vw)',
     lg: '2rem',

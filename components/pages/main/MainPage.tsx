@@ -38,7 +38,7 @@ const MainPage = () => {
         <CustomButton
           text={'To other collections'}
           variant={ButtonVariant.OUTLINED}
-          color={ButtonColor.SECONDARY}
+          color={ButtonColor.LINK}
           href={'/'}
           sx={styles.contactsButton}
         />
