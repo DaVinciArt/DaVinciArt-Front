@@ -26,8 +26,8 @@ const RegistrationPage = () => {
   const router = useRouter();
   const [user, setUser] = useState({
     username: '',
-    name: '',
-    surname: '',
+    first_name: '',
+    last_name: '',
     email: '',
     password: '',
     avatar: null,
