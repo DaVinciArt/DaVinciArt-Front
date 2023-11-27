@@ -6,8 +6,8 @@ interface ValidatorMap {
 
 export const validationMaper: ValidatorMap = {
   USERNAME: usernameValidator,
-  NAME: namesValidator,
-  SURNAME: namesValidator,
+  FIRST_NAME: namesValidator,
+  LAST_NAME: namesValidator,
   EMAIL: emailValidator,
   PASSWORD: passwordValidator,
 }
