@@ -2,12 +2,9 @@
 
 import {
   Box,
-  createTheme,
   FormControl,
-  FormHelperText,
   InputLabel,
   OutlinedInput,
-  ThemeProvider,
   Typography
 } from "@mui/material";
 import {ChangeEvent, Dispatch, FC, InputHTMLAttributes, SetStateAction, useState} from "react";
@@ -18,8 +15,10 @@ import {NewUser} from "../../../../types/NewUser";
 import Image from "next/image";
 
 
-interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement>{
+interface CustomInputProps {
   label: string;
+  name: string;
+  type? : 'password' | 'text',
   validationFunc?: (value: string) => string[];
   endAdornment?: React.ReactNode;
   object: NewUser | {username: string, password: string};
@@ -28,6 +27,8 @@ interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement>{
 
 const CustomInput: FC<CustomInputProps> = ({
 	label,
+  name,
+  type = 'text',
   validationFunc,
   endAdornment,
   object,
@@ -50,8 +51,9 @@ const CustomInput: FC<CustomInputProps> = ({
         {label}
       </InputLabel>
       <OutlinedInput
-        id={label}
         sx={styles.input}
+        name={name}
+        type={type}
         onChange={handleChange}
         endAdornment={endAdornment}
         {...rest}

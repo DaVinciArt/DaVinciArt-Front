@@ -64,7 +64,7 @@ const RegistrationPage = () => {
         <CustomInput label='Username' name='username' object={user} setObject={setUser}/>
         <CustomInput label='First name' name='first_name' object={user} setObject={setUser}/>
         <CustomInput label='Last name' name='last_name' object={user} setObject={setUser}/>
-        <CustomInput type='email' label='Email' name='email' object={user} setObject={setUser}/>
+        <CustomInput label='Email' name='email' object={user} setObject={setUser}/>
         <CustomInput
           type={passwordState}
           label='Password'
