@@ -12,12 +12,6 @@ import registerIcon from '../../../public/icons/register-icon.jpg';
 import * as sxStyles from './RegistrationPage.styles';
 import {useState} from "react";
 import AvatarDropzone from "./components/AvatarDropzone";
-import {
-  emailValidator,
-  namesValidator,
-  passwordValidator,
-  usernameValidator
-} from "../../common/ui/custom-input/utils/inputValidators";
 import {checkNewUser} from "./utils/checkNewUser";
 import {Visibility, VisibilityOff } from "@mui/icons-material";
 import {registerUser} from "../../../lib/api/api";
@@ -28,6 +22,7 @@ const RegistrationPage = () => {
   const [file, setFile] = useState<Blob | null>(null);
   const [avatarURL, setAvatarURL] = useState('');
   const [passwordState, setPasswordState] = useState('password');
+  const [saveImage, setSaveImage] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({
     username: '',
@@ -35,13 +30,18 @@ const RegistrationPage = () => {
     surname: '',
     email: '',
     password: '',
-    avatar: file,
+    avatar: null,
   })
 
 
   const handleChangeImage = () => {
     setFile(null);
     setAvatarURL('');
+  };
+
+  const handleSaveImage = () => {
+    setUser({...user, avatar: file})
+    setSaveImage(true);
   };
 
   const handleSubmit = (event: React.FormEvent) => {
@@ -96,9 +96,18 @@ const RegistrationPage = () => {
                 onClick={handleChangeImage}
                 text={'Change'}
                 size={ButtonSize.SMALL}
+                variant={ButtonVariant.OUTLINED}
+                color={ButtonColor.INPUT}
+                sx={{width: '50%'}}
+              />
+
+              <CustomButton
+                onClick={handleSaveImage}
+                text={'Save'}
+                size={ButtonSize.SMALL}
                 variant={ButtonVariant.CONTAINED}
                 color={ButtonColor.INPUT}
-                sx={{width: '100%'}}
+                sx={{width: '50%', display: saveImage ? 'none' : 'flex',}}
               />
             </Box>
           </Box>
