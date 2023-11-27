@@ -44,11 +44,11 @@ const RegistrationPage = () => {
     setSaveImage(true);
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (checkNewUser(user)) {
-      registerUser(user);
+      await registerUser(user);
       router.push('/');
     }
   };

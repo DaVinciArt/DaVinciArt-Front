@@ -3,7 +3,7 @@ import Image from "next/image";
 import addImageIcon from "../../../../public/icons/add-image.png";
 import CustomButton from "../../../common/ui/custom-button/CustomButton";
 import {ButtonColor, ButtonSize, ButtonVariant} from "../../../common/ui/custom-button/types";
-import {ChangeEvent, Dispatch, FC, SetStateAction, useRef, useState} from "react";
+import {ChangeEvent, Dispatch, FC, SetStateAction, DragEvent, useRef, useState} from "react";
 import {handleFileSelect} from "../utils/handleFileSelect";
 
 import * as styles from "./AvatarDropzone.styles";

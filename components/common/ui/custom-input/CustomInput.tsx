@@ -18,7 +18,7 @@ import Image from "next/image";
 interface CustomInputProps {
   label: string;
   name: string;
-  type? : 'password' | 'text',
+  type? : string,
   validationFunc?: (value: string) => string[];
   endAdornment?: React.ReactNode;
   object: NewUser | {username: string, password: string};
@@ -45,7 +45,8 @@ const CustomInput: FC<CustomInputProps> = ({
     setErrors(validationMaper[inputName](event.target.value))
   }
 
-	return (
+	// @ts-ignore
+  return (
     <FormControl sx={{mb: '16px'}}>
       <InputLabel htmlFor={label} sx={styles.inputLabel} size={'normal'}>
         {label}

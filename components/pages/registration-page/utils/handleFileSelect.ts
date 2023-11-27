@@ -5,7 +5,7 @@ import {convertImageToBlob} from "../../../../lib/utils/convertImageToBlob";
 export const handleFileSelect = (
   file: File,
   setImageInputError: Dispatch<SetStateAction<string>>,
-  setFile: Dispatch<SetStateAction<File | null>>,
+  setFile: Dispatch<SetStateAction<Blob | null>>,
   setAvatarURL: Dispatch<SetStateAction<string>>,
 ) => {
   if (!isValidFile(file)) {

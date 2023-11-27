@@ -4,7 +4,7 @@ import {LoginData} from "../../types/LoginData";
 
 export const registerUser = async (user: NewUser) => {
   try {
-    const response = await axios.post(`${process.env.API_DEV_ADRESS}/auth/register`, user);
+    const response = await axios.post(`http://localhost:3001/auth/register`, user);
     return response.data;
   } catch (message) {
     console.error(`An error occurred while registration user: ${user.username}`, message)
@@ -13,7 +13,7 @@ export const registerUser = async (user: NewUser) => {
 
 export const loginUser = async (loginData: LoginData) => {
   try {
-    const response = await axios.post(`${process.env.API_DEV_ADRESS}/auth/login`, loginData);
+    const response = await axios.post(`http://localhost:3001/auth/login`, loginData);
     return response.data;
   } catch (message) {
     console.error(`An error occurred while login user with username: ${loginData.username}`, message)
