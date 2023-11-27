@@ -10,6 +10,7 @@ import ArtistCard from './components/artist-card/ArtistCard';
 import hands from '../../../public/images/hands.jpeg';
 import trees from '../../../public/images/olive-trees.jpeg';
 import queen from '../../../public/images/queen.jpeg';
+import Link from "next/link";
 
 const MainPage = () => {
   let images: ColectionImage[] = [
@@ -33,6 +34,7 @@ const MainPage = () => {
   return (
     <Box sx={styles.mainPageStyles}>
       <AboutUsSection/>
+      <Link href={'/account'} style={{margin: '0 auto'}}>Cock</Link>
       <Box sx={styles.carouselSection}>
         <CustomCarousel images={images}/>
         <CustomButton

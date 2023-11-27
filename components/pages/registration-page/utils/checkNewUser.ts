@@ -1,4 +1,4 @@
-import {User} from "../../../../types/User";
+import {NewUser} from "../../../../types/NewUser";
 import {
   emailValidator,
   namesValidator,
@@ -6,7 +6,7 @@ import {
   usernameValidator
 } from "../../../common/ui/custom-input/utils/inputValidators";
 
-export const checkNewUser = (user : User) => {
+export const checkNewUser = (user : NewUser) => {
   let isValid = true;
 
   if (usernameValidator(user.username).length > 0 || user.username === '') { isValid = false; }

@@ -12,7 +12,7 @@ import {usePathname} from "next/navigation";
 
 const Header = () => {
   const pathname = usePathname();
-  const isLoginOrRegister = ['/login', '/register'].includes(pathname);
+  const isLoginOrRegister = ['/login-page', '/register'].includes(pathname);
 
   return (
     <header>

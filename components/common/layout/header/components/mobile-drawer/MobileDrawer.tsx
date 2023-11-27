@@ -52,7 +52,7 @@ const MobileDrawer: FC<MobileDrawerProps> = ({
             </Typography>
           </Link>
           <Box sx={styles.drawerControls}>
-            <Link href={'/login'} onClick={() => setDrawerState(false)}>
+            <Link href={'/login-page'} onClick={() => setDrawerState(false)}>
               <CustomButton text={'Login'} sx={styles.controlsButton} variant={ButtonVariant.OUTLINED}/>
             </Link>
             <Divider orientation='vertical' flexItem sx={styles.controlsDivider}/>

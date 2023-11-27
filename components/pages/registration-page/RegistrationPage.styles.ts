@@ -21,7 +21,7 @@ export const formHeader: SxProps<Theme> = {
 export const avatarContainer: SxProps<Theme> = {
   margin: '0 auto',
   padding: '15px',
-  border: '2px solid #b5838d',
+
   borderRadius: '15px',
 };
 
@@ -34,5 +34,5 @@ export const avatarControls: SxProps<Theme> = {
   display: 'flex',
   gap: '20px',
   justifyContent: 'center',
-  paddingTop: '10px',
+  paddingTop: '12px',
 };

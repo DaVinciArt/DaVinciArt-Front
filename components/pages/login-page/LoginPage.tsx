@@ -33,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <Box sx={styles.formContainer}>
-      <FormIcon src={loginIcon} alt={"login icon"}/>
+      <FormIcon src={loginIcon} alt={"login-page icon"}/>
       <Typography sx={styles.formHeader}>Log in to your account</Typography>
       <form
         style={{display: 'flex', flexDirection: 'column', marginTop: '25px',}}
