@@ -9,6 +9,11 @@ import './globals.css';
 import {Box, createTheme, ThemeProvider} from "@mui/material";
 
 const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#b5838d',
+    },
+  },
   typography: {
     fontFamily: 'Mulish',
   },

@@ -23,7 +23,7 @@ import {Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 const RegistrationPage = () => {
-  const [file, setFile] = useState<File | null>(null);
+  const [file, setFile] = useState<Blob | null>(null);
   const [avatarURL, setAvatarURL] = useState('');
   const [passwordState, setPasswordState] = useState('password');
   const [user, setUser] = useState({
@@ -34,6 +34,7 @@ const RegistrationPage = () => {
     password: '',
     avatar: file,
   })
+
 
   const handleChangeImage = () => {
     setFile(null);
@@ -102,7 +103,7 @@ const RegistrationPage = () => {
         )}
 
         <CustomButton type='submit' text={'Register'} variant={ButtonVariant.CONTAINED} sx={{mt: '40px'}}/>
-        <FormLink text={"Already joined us?"} href={'/login'}/>
+        <FormLink text={"Already joined us?"} href={'/login-page'}/>
         <Link href={'/'}>
           <CustomButton text={'To Main Page'} sx={{mt: '30px', width: '100%'}}/>
         </Link>

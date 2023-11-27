@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { isValidFile } from "./isValidFile";
+import {convertImageToBlob} from "../../../../lib/utils/convertImageToBlob";
 
 export const handleFileSelect = (
   file: File,
@@ -29,6 +30,5 @@ export const handleFileSelect = (
     }
   };
   reader.readAsDataURL(file);
-  console.log(JSON.stringify(file))
-  setFile(file);
+  setFile(convertImageToBlob(file));
 };
