@@ -20,12 +20,15 @@ import {
 } from "../../common/ui/custom-input/utils/inputValidators";
 import {checkNewUser} from "./utils/checkNewUser";
 import {Visibility, VisibilityOff } from "@mui/icons-material";
+import {registerUser} from "../../../lib/api/api";
+import { useRouter } from "next/navigation";
 
 
 const RegistrationPage = () => {
   const [file, setFile] = useState<Blob | null>(null);
   const [avatarURL, setAvatarURL] = useState('');
   const [passwordState, setPasswordState] = useState('password');
+  const router = useRouter();
   const [user, setUser] = useState({
     username: '',
     name: '',
@@ -45,7 +48,8 @@ const RegistrationPage = () => {
     event.preventDefault();
 
     if (checkNewUser(user)) {
-      console.log(user)
+      registerUser(user);
+      router.push('/');
     }
   };
 
