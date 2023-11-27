@@ -1,7 +1,7 @@
 export type NewUser = {
   username: string,
-  name: string,
-  surname: string,
+  first_name: string,
+  last_name: string,
   email: string,
   password: string,
   avatar: Blob,

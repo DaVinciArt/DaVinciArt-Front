@@ -1,5 +1,5 @@
 import React from "react";
-import {AccountPageTab} from "../../types";
+import {AccountPageTab} from "../../../pages/account-page/types";
 
 
 interface TabPanelProps {

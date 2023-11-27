@@ -4,7 +4,7 @@ import { Box, Tab, Tabs } from "@mui/material";
 import {SyntheticEvent, useState } from "react";
 import { AccountPageTab } from "./types";
 import {CurrencyDollarIcon, HomeIcon, PlusIcon} from "@heroicons/react/24/outline";
-import TabPanel from "./components/tab-panel/TabPanel";
+import TabPanel from "../../common/ui/tab-panel/TabPanel";
 
 import * as styles from './AccountPage.styles';
 import GeneralTab from "./components/general-tab/GeneralTab";

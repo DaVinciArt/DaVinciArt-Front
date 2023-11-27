@@ -14,10 +14,13 @@ import * as styles from './LoginPage.styles';
 import {useState} from "react";
 import {checkLoginData} from "./utils/checkLoginData";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
+import {useRouter} from "next/navigation";
+import {loginUser} from "../../../lib/api/api";
 
 
 const LoginPage = () => {
   const [passwordState, setPasswordState] = useState('password');
+  const router = useRouter();
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -27,7 +30,8 @@ const LoginPage = () => {
     event.preventDefault();
 
     if (checkLoginData(loginData)) {
-      console.log(loginData)
+      loginUser(loginData);
+      router.push('/');
     }
   };
 

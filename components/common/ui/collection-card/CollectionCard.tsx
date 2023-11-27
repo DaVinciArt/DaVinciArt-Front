@@ -13,15 +13,17 @@ interface CollectionCardProps {
 const CollectionCard: FC<CollectionCardProps> = ({collection}) => {
   return (
     <Box sx={sxStyles.cardContainer}>
-      <Image src={collection.previewImage} alt={collection.label} style={{width: '300px', height: 'auto'}}/>
+      <Image
+        src={collection.previewImage}
+        alt={collection.label}
+        style={{width: '350px', height: 'auto', borderRadius: '10px'}}/>
       <Typography sx={sxStyles.label}>Collection "{collection.label}"</Typography>
       <Typography sx={sxStyles.otherProps}>Author: {collection.authorID}</Typography>
       <Typography sx={sxStyles.otherProps}>Creation date: {collection.creationDate}</Typography>
       <Typography sx={sxStyles.otherProps}>Price: {collection.price}</Typography>
       <Box sx={sxStyles.controlsContainer}>
-        <CustomButton text={'View'}/>
-        <CustomButton text={'Edit'}/>
-        <CustomButton text={'Buy'}/>
+        <CustomButton text={'View'} sx={{width: '100%'}}/>
+        <CustomButton text={'Buy'} sx={{width: '100%'}}/>
       </Box>
     </Box>
   );

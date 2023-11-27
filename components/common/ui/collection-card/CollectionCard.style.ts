@@ -5,13 +5,19 @@ export const cardContainer: SxProps<Theme> = {
   width: '400px',
   flexDirection: 'column',
   alignItems: 'center',
-  padding: '15px',
-  border: '1px solid black',
+  padding: '15px 20px ',
+  borderRadius: '15px',
+  boxShadow: '6px 6px 9px #adacac',
+  transition: 'all 0.2s ease-in-out',
+  '&:hover': {
+    transform: 'scale(1.01)'
+  }
 }
 
 export const label: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
-  fontSize: '40px',
+  fontSize: '35px',
+  mt: '10px',
 }
 
 export const otherProps: SxProps<Theme> = {
@@ -22,6 +28,7 @@ export const otherProps: SxProps<Theme> = {
 
 export const controlsContainer: SxProps<Theme> = {
   display: 'flex',
-  justifyContent: 'center',
+  width: '100%',
   gap: '10px',
+  mt: '10px',
 }

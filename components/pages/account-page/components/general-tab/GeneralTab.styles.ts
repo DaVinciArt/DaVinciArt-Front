@@ -2,31 +2,54 @@ import {SxProps, Theme} from "@mui/material";
 
 export const userInformationContainer: SxProps<Theme> = {
   display: 'flex',
+  alignItems: 'center',
   justifyContent: 'center',
+  flexDirection: {
+    xs: 'column',
+    md: 'row',
+  }
 }
 
 export const avatar: SxProps<Theme> = {
   width: '250px',
   height: '250px',
-  mr: '80px',
+  m: {
+    xs: '0 auto',
+    md: ' 0 80px 0 0'
+  }
 }
 
 export const textInformation: SxProps<Theme> = {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
-  gap: '10px'
+  gap: '10px',
+  maxWidth: '420px',
+
 }
 
 export const username: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
   fontWeight: 400,
-  fontSize: '50px',
-  color: '#3b3b3b'
+  color: '#3b3b3b',
+  whiteSpace: 'nowrap',
+  textAlign: {
+    xs: 'center',
+    md: 'left',
+  },
+  fontSize: {
+    xs: '40px',
+    md: '50px',
+  },
+  mt: {
+    xs: '15px',
+    md: '0',
+  }
 }
 
 export const textBox: SxProps<Theme> = {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: '15px',
 }
 
@@ -40,6 +63,10 @@ export const other: SxProps<Theme> = {
   padding: '6px 20px',
   display: 'flex',
   alignItems: 'center',
+  width: {
+    xs: '100%',
+    sm: 'fit-content',
+  }
 }
 
 export const collectionsHeader: SxProps<Theme> = {

@@ -82,8 +82,6 @@ const GeneralTab = () => {
               <Image src={pesPatron} alt={'patron icon'} style={{width: '20px', height: 'auto', marginRight: '7px'}}/>
               300 PatronCoins
             </Typography>
-          </Box>
-          <Box sx={styles.textBox}>
             <Typography sx={styles.other}>dnlablonskyi@gmail.com</Typography>
             <Typography sx={styles.other}>
               <VisibilityOutlined sx={{width: '20px', mr: '7px'}}/>
