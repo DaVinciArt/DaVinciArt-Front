@@ -26,11 +26,11 @@ const LoginPage = () => {
     password: '',
   })
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
     if (checkLoginData(loginData)) {
-      loginUser(loginData);
+      await loginUser(loginData);
       router.push('/');
     }
   };

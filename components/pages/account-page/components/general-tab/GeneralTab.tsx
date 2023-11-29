@@ -2,19 +2,26 @@
 
 import {Avatar, Box, Typography} from "@mui/material";
 import Image from "next/image";
-import {VisibilityOutlined} from "@mui/icons-material";
 import pesPatron from '../../../../../public/icons/dog.png';
-import {useState} from "react";
 
 import * as styles from './GeneralTab.styles'
-import {ColectionImage} from "../../../../../types/ColectionImage";
 import hands from "../../../../../public/images/hands.jpeg";
-import trees from "../../../../../public/images/olive-trees.jpeg";
-import queen from "../../../../../public/images/queen.jpeg";
 import {Collection, CollectionStatus} from "../../../../../types/Collection";
 import CollectionCard from "../../../../common/ui/collection-card/CollectionCard";
+import {stringAvatar} from "./utils/createNamedAvatar";
+import CustomButton from "../../../../common/ui/custom-button/CustomButton";
+import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
+import StorageUtil from "../../../../../lib/utils/StorageUtil";
+import {useRouter} from "next/navigation";
+import {User} from "../../../../../types/User";
+import {FC} from "react";
 
-const GeneralTab = () => {
+interface GeneralTabProps {
+  user: User
+}
+
+const GeneralTab: FC<GeneralTabProps> = ({user}) => {
+  const router = useRouter();
 
   let collections: Collection[] = [
     {
@@ -43,68 +50,52 @@ const GeneralTab = () => {
     },
   ]
 
-  function stringToColor(string: string) {
-    let hash = 0;
-    let i;
-
-    for (i = 0; i < string.length; i += 1) {
-      hash = string.charCodeAt(i) + ((hash << 5) - hash);
-    }
-
-    let color = '#';
-
-    for (i = 0; i < 3; i += 1) {
-      const value = (hash >> (i * 8)) & 0xff;
-      color += `00${value.toString(16)}`.slice(-2);
-    }
-
-    return color;
-  }
-
-  function stringAvatar(name: string) {
-    return {
-      sx: {
-        bgcolor: stringToColor(name),
-      },
-      children: `${name.split(' ')[0][0]}${name.split(' ')[1][0]}`,
-    };
+  const handleClick = () => {
+    StorageUtil.removeAccessToken();
+    router.push('/login')
   }
 
   return (
-    <Box>
-      <Box sx={styles.userInformationContainer}>
-        <Avatar {...stringAvatar('Kent Dodds')} sx={styles.avatar}/>
-        <Box sx={styles.textInformation}>
-          <Typography sx={styles.username}>Yablonya</Typography>
-          <Box sx={styles.textBox}>
-            <Typography sx={styles.other}>Danylo Yablonskyi</Typography>
-            <Typography sx={styles.other}>
-              <Image src={pesPatron} alt={'patron icon'} style={{width: '20px', height: 'auto', marginRight: '7px'}}/>
-              300 PatronCoins
-            </Typography>
-            <Typography sx={styles.other}>dnlablonskyi@gmail.com</Typography>
-            <Typography sx={styles.other}>
-              <VisibilityOutlined sx={{width: '20px', mr: '7px'}}/>
-              19 views
-            </Typography>
+    user &&
+    (
+      <Box>
+        <Box sx={styles.userInformationContainer}>
+          <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} sx={styles.avatar}/>
+          <Box sx={styles.textInformation}>
+            <Typography sx={styles.username}>{user.username}</Typography>
+            <Box sx={styles.textBox}>
+              <Typography sx={styles.other}>{user.first_name + ' ' + user.last_name}</Typography>
+              <Typography sx={styles.other}>
+                <Image src={pesPatron} alt={'patron icon'} style={{width: '20px', height: 'auto', marginRight: '7px'}}/>
+                {user.balance} PatronCoins
+              </Typography>
+              <Typography sx={styles.other}>{user.email}</Typography>
+              <CustomButton
+                sx={styles.logOutButton}
+                text={'Log out'}
+                variant={ButtonVariant.CONTAINED}
+                color={ButtonColor.INPUT}
+                onClick={handleClick}
+              />
+            </Box>
+          </Box>
+        </Box>
+        <Box>
+          <Typography sx={styles.collectionsHeader}>Yor collections</Typography>
+          <Box sx={styles.collectionsContainer}>
+            {collections ?
+              (
+                collections.map((collection, index) => (
+                  <CollectionCard key={index} collection={collection}/>
+                ))
+              )
+              :
+              <Typography sx={styles.noCollections}>You have no collections :(</Typography>
+            }
           </Box>
         </Box>
       </Box>
-      <Box>
-        <Typography sx={styles.collectionsHeader}>Yor collections</Typography>
-        <Box sx={styles.collectionsContainer}>
-          {collections ?
-            (
-              collections.map((collection, index) => (
-                <CollectionCard collection={collection}/>
-              ))
-            )
-            :
-            <Typography sx={styles.noCollections}>You have no collections :(</Typography>
-          }
-        </Box>
-      </Box>
-    </Box>
+    )
   );
 };
 

@@ -1,3 +1,5 @@
+'use client'
+
 import {Box, Typography} from "@mui/material";
 import CustomCarousel from "../../common/ui/carousel/CustomCarousel";
 import {ColectionImage} from "../../../types/ColectionImage";
@@ -11,6 +13,9 @@ import hands from '../../../public/images/hands.jpeg';
 import trees from '../../../public/images/olive-trees.jpeg';
 import queen from '../../../public/images/queen.jpeg';
 import Link from "next/link";
+import StorageUtil from "../../../lib/utils/StorageUtil";
+import {decodeToken} from "../../../lib/utils/decodeToken";
+import {User} from "../../../types/User";
 
 const MainPage = () => {
   let images: ColectionImage[] = [
@@ -34,7 +39,6 @@ const MainPage = () => {
   return (
     <Box sx={styles.mainPageStyles}>
       <AboutUsSection/>
-      <Link href={'/account'} style={{margin: '0 auto'}}>Cock</Link>
       <Box sx={styles.carouselSection}>
         <CustomCarousel images={images}/>
         <CustomButton

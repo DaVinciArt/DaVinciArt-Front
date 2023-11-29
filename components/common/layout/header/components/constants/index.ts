@@ -1,6 +1,6 @@
 const ROUTES = [
   {
-    text: 'Login',
+    text: 'Log in',
     path: '/login'
   },
   {

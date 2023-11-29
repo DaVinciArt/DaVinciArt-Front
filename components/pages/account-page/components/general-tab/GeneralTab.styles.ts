@@ -13,6 +13,7 @@ export const userInformationContainer: SxProps<Theme> = {
 export const avatar: SxProps<Theme> = {
   width: '250px',
   height: '250px',
+  fontSize: '50px',
   m: {
     xs: '0 auto',
     md: ' 0 80px 0 0'
@@ -63,6 +64,13 @@ export const other: SxProps<Theme> = {
   padding: '6px 20px',
   display: 'flex',
   alignItems: 'center',
+  width: {
+    xs: '100%',
+    sm: 'fit-content',
+  }
+}
+
+export const logOutButton: SxProps<Theme> = {
   width: {
     xs: '100%',
     sm: 'fit-content',

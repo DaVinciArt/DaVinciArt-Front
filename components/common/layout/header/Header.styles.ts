@@ -17,15 +17,21 @@ export const logo: SxProps<Theme> = {
 	fontFamily: 'Cormorant Infant',
 };
 
-export const controls = (isLoginOrRegister): SxProps<Theme> => ({
+export const controls: SxProps<Theme> = {
 	display: {
     xs: 'none',
-    sm: isLoginOrRegister ? 'none' : 'flex',
+    sm: 'flex',
   },
 	alignItems: 'center',
 	justifyContent: 'flex-end',
 	gap: '20px',
-});
+  '&:hover .hover-underline': {
+    '&:after': {
+      transform: 'scaleX(1)',
+      transformOrigin: 'bottom right',
+    }
+  }
+};
 
 export const mobileControls = (isLoginOrRegister): SxProps<Theme> => ({
   display: {

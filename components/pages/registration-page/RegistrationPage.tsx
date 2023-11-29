@@ -116,7 +116,7 @@ const RegistrationPage = () => {
         )}
 
         <CustomButton type='submit' text={'Register'} variant={ButtonVariant.CONTAINED} sx={{mt: '40px'}}/>
-        <FormLink text={"Already joined us?"} href={'/login-page'}/>
+        <FormLink text={"Already joined us?"} href={'/login'}/>
         <Link href={'/'}>
           <CustomButton text={'To Main Page'} sx={{mt: '30px', width: '100%'}}/>
         </Link>
