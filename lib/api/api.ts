@@ -6,7 +6,11 @@ import {decodeToken} from "../utils/decodeToken";
 
 export const registerUser = async (user: NewUser) => {
   try {
-    const response = await axios.post(`http://localhost:3001/auth/register`, user);
+    const response = await axios.post(`http://localhost:3001/auth/register`, user, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     StorageUtil.setAccessToken(response.data.accessToken)
   } catch (message) {
     console.error(`An error occurred while registration user: ${user.username}`, message)
