@@ -57,7 +57,12 @@ export const createCollection = async (
   });
 
   try {
-    const response = await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData);
+    const response = await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
     console.log(response)
   } catch (message) {
     console.error(`An error occurred while creating collection with label: ${collection.name}`, message)
