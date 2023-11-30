@@ -53,20 +53,43 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
   //   setPictureURL('');
   // }
 
-  const handleSubmit = () => {
+  const clearForm = () => {
+    setPreviewFile(null)
+    setPreviewURL('')
+    setCollectionParams({
+      name: '',
+      price: '',
+      tags: '',
+    })
+    setPictureFile(null)
+    setPictureURL('')
+    setPictureLabel('')
+    setcollectionPaintings([])
+    handleCansel();
+  }
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
     if(checkValidCollection(collectionParams, previewFile, collectionPaintings)) {
-      createCollection(userID, collectionParams, previewFile, collectionPaintings)
+      await createCollection(userID, collectionParams, previewFile, collectionPaintings)
+      clearForm()
     }
   }
 
   return (
     <Box>
       <Box sx={styles.collectionParameters}>
-        <PictureDropzone
-          setFile={setPreviewFile}
-          setPictureURL={setPreviewURL}
-          sx={styles.previewDropzone}
-        />
+        {previewURL ?
+          <Box>
+            <img src={previewURL} alt={'collection preview'} style={{width: '100%',height: '320px', borderRadius: '15px'}}/>
+          </Box>
+          :
+          <PictureDropzone
+            setFile={setPreviewFile}
+            setPictureURL={setPreviewURL}
+            sx={styles.previewDropzone}
+          />
+        }
         <form
           onSubmit={handleSubmit}
           style={{display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '400px', marginTop: '10px'}}
@@ -121,16 +144,10 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
           }
         </Box>
         {collectionPaintings && collectionPaintings.map((painting, index) => (
-          <Box key={index} sx={styles.addedPictureContainer(painting.picture_name)}>
+          <Box key={index} sx={styles.addedPictureContainer}>
             <img src={painting.link} alt={painting.picture_name} style={{width: 'auto', height: '200px',}}/>
-            <Box className='controlsBlock' sx={styles.controlsBlock}>
-              <Typography sx={styles.addedPictureLabel}>{painting.picture_name}</Typography>
-              <CustomButton
-                text={"Delete"}
-                sx={{width: '100%'}}
-                variant={ButtonVariant.CONTAINED}
-                size={ButtonSize.SMALL}
-              />
+            <Box className='overlay' sx={styles.overlay}>
+              {/*<Typography sx={styles.addedPictureLabel}>{painting.picture_name}</Typography>*/}
             </Box>
           </Box>
         ))}

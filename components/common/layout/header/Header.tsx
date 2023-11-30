@@ -16,7 +16,7 @@ import {STORAGE_KEYS} from "../../../../types/utils/storage";
 
 const Header = () => {
   const pathname = usePathname();
-  const router = useRouter()
+  // const router = useRouter()
   const [accessToken, setAccessToken] = useState('')
   const [isLogged, setisLogged] = useState(true);
   const isLoginOrRegister = ['/login', '/register'].includes(pathname);
@@ -34,9 +34,9 @@ const Header = () => {
     setisLogged(!!accessToken)
   }, [accessToken]);
 
-  if (pathname.includes('account') && !isLogged) {
-    router.push('/login')
-  }
+  // if (pathname.includes('account') && !isLogged) {
+  //   router.push('/login')
+  // }
 
   return (
     <header>

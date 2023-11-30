@@ -44,6 +44,7 @@ export const createCollection = async (
 ) => {
   const formData = new FormData();
   const now = new Date()
+
   formData.append('name', collection.name);
   formData.append('price', collection.name);
   formData.append('tags', collection.tags);
