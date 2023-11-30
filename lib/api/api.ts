@@ -53,7 +53,9 @@ export const createCollection = async (
 
   pictures.forEach((picture, index) => {
     formData.append(`pictures[${index}][picture_name]`, picture.picture_name);
-    formData.append(`pictures[${index}][image]`, picture.image);
+    formData.append(`pictures[${index}][image]`,
+      picture.image,
+      `pictures[${index}][picture_name]` + Date.now() + '.' + picture.image.type.split('/')[1]);
   });
 
   try {
