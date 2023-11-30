@@ -2,16 +2,17 @@
 
 import {Box, Typography} from "@mui/material";
 import * as styles from './AddCollectionTab.styles'
+import stylesCSS from './AddCollectionTab.module.scss'
 import PictureDropzone from "../../../../common/ui/picture-dropzone/PictureDropzone";
 import {FC, useState} from "react";
 import CustomInput from "../../../../common/ui/custom-input/CustomInput";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
-import {ButtonColor, ButtonSize, ButtonVariant} from "../../../../common/ui/custom-button/types";
+import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
 import {NewPicture} from "../../../../../types/NewPicture";
 import {checkValidCollection} from "./utils/checkValidCollection";
-import {User} from "../../../../../types/User";
 import {createCollection} from "../../../../../lib/api/api";
-
+import bin from '../../../../../public/icons/bin.png'
+import Image from "next/image";
 
 interface AddCollectionTabProps {
   userID: number
@@ -27,18 +28,18 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
   })
   const [pictureFile, setPictureFile] = useState<Blob | null>(null);
   const [pictureURL, setPictureURL] = useState('');
-  const [pictureLabel, setPictureLabel] = useState<string>('');
-  const [collectionPaintings, setcollectionPaintings] = useState<NewPicture[]>([])
+  const [pictureLabel, setPictureLabel] = useState('');
+  const [collectionPaintings, setCollectionPaintings] = useState<NewPicture[]>([])
+  const [pageErrors, setPageErrors] = useState([])
 
   const handleAdd = () => {
-    setcollectionPaintings([...collectionPaintings, {
+    setCollectionPaintings([...collectionPaintings, {
       picture_name: pictureLabel,
       image: pictureFile,
       link: pictureURL,
+      id: Date.now()
     }])
-    setPictureLabel('');
-    setPictureFile(null);
-    setPictureURL('');
+    handleCansel()
   }
 
   const handleCansel = () => {
@@ -47,11 +48,14 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     setPictureURL('');
   }
 
-  // const handleDelete = () => {
-  //   setPictureLabel('');
-  //   setPictureFile(null);
-  //   setPictureURL('');
-  // }
+  const handleChangePreview = () => {
+    setPreviewFile(null);
+    setPreviewURL('');
+  }
+
+  const handleDelete = (id: number) => {
+    setCollectionPaintings(collectionPaintings.filter((picture) => picture.id !== id))
+  }
 
   const clearForm = () => {
     setPreviewFile(null)
@@ -61,18 +65,20 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       price: '',
       tags: '',
     })
-    setPictureFile(null)
-    setPictureURL('')
-    setPictureLabel('')
-    setcollectionPaintings([])
+    setCollectionPaintings([])
     handleCansel();
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    if(checkValidCollection(collectionParams, previewFile, collectionPaintings)) {
+    const errors = checkValidCollection(collectionParams, previewFile, collectionPaintings);
+
+    if(errors.length === 0) {
       await createCollection(userID, collectionParams, previewFile, collectionPaintings)
       clearForm()
+    } else {
+      setPageErrors(errors)
+      setTimeout(() => setPageErrors([]), 5000)
     }
   }
 
@@ -81,7 +87,13 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       <Box sx={styles.collectionParameters}>
         {previewURL ?
           <Box>
-            <img src={previewURL} alt={'collection preview'} style={{width: '100%',height: '320px', borderRadius: '15px'}}/>
+            <img src={previewURL} alt={'collection preview'} className={stylesCSS['collectionPreview']}/>
+            <CustomButton
+              text='Change'
+              sx={{width: '100%', mt: '10px'}}
+              color={ButtonColor.INPUT}
+              onClick={handleChangePreview}
+            />
           </Box>
           :
           <PictureDropzone
@@ -90,20 +102,35 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
             sx={styles.previewDropzone}
           />
         }
-        <form
-          onSubmit={handleSubmit}
-          style={{display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '400px', marginTop: '10px'}}
-        >
+        <form onSubmit={handleSubmit} className={stylesCSS['form']}>
           <Typography sx={styles.formHeader}>Create new collection</Typography>
           <CustomInput
             label={"Label"}
             name={"name"}
             object={collectionParams}
             setObject={setCollectionParams}
+            value={collectionParams.name}
           />
-          <CustomInput label={"Price"} name={"price"} object={collectionParams} setObject={setCollectionParams}/>
-          <CustomInput label={"Tags"} name={"tags"} object={collectionParams} setObject={setCollectionParams}/>
-          <CustomButton type='submit' text={"Create collection"} color={ButtonColor.INPUT}/>
+          <CustomInput
+            label={"Price"}
+            name={"price"}
+            object={collectionParams}
+            setObject={setCollectionParams}
+            value={collectionParams.price}
+          />
+          <CustomInput
+            label={"Tags"}
+            object={collectionParams}
+            setObject={setCollectionParams}
+            name={"tags"}
+            value={collectionParams.tags}
+          />
+          <Box>
+            <CustomButton type='submit' text={"Create collection"} sx={{width: '100%'}}/>
+            {pageErrors.length > 0 && pageErrors.map((error, index) => (
+              <Typography key={index} sx={{color: 'red'}}> - {error}</Typography>
+            ))}
+          </Box>
         </form>
       </Box>
       <Typography sx={styles.divider}>Add paintings to collection</Typography>
@@ -111,7 +138,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
         <Box sx={styles.addPaintingContainer}>
           {pictureURL ?
             <Box>
-              <img src={pictureURL} alt={'new picture'} style={{width: '100%', height: 'auto', borderRadius: '15px'}}/>
+              <img src={pictureURL} alt={'new picture'} className={stylesCSS['newPicture']}/>
               <CustomInput
                 label={"Picture label"}
                 name={"picture_label"}
@@ -121,7 +148,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
               />
               <Box sx={styles.paintingControls}>
                 <CustomButton
-                  text={"Cansel"}
+                  text={"Cancel"}
                   color={ButtonColor.INPUT}
                   sx={{width: '100%'}}
                   onClick={handleCansel}
@@ -145,9 +172,14 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
         </Box>
         {collectionPaintings && collectionPaintings.map((painting, index) => (
           <Box key={index} sx={styles.addedPictureContainer}>
-            <img src={painting.link} alt={painting.picture_name} style={{width: 'auto', height: '200px',}}/>
+            <img src={painting.link} alt={painting.picture_name} className={stylesCSS['addedPicture']}/>
             <Box className='overlay' sx={styles.overlay}>
-              {/*<Typography sx={styles.addedPictureLabel}>{painting.picture_name}</Typography>*/}
+              <Typography sx={styles.addedPictureLabel}>{painting.picture_name}</Typography>
+              <Image
+                src={bin}
+                alt={"delete icon"}
+                className={stylesCSS['deleteIcon']}
+                onClick={() => handleDelete(painting.id)}/>
             </Box>
           </Box>
         ))}

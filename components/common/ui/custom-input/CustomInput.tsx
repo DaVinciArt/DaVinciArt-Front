@@ -19,6 +19,7 @@ import mergeSx from "../../../../lib/utils/MergeSxStylesUtil";
 interface CustomInputProps {
   label: string;
   name: string;
+  value?: string
   sx?: SxProps<Theme>
   type? : string,
   validationFunc?: (value: string) => string[];
@@ -31,6 +32,7 @@ const CustomInput: FC<CustomInputProps> = ({
 	label,
   name,
   sx,
+  value,
   type = 'text',
   validationFunc,
   endAdornment,
@@ -61,6 +63,7 @@ const CustomInput: FC<CustomInputProps> = ({
         sx={styles.input}
         name={name}
         type={type}
+        value={value}
         onChange={handleChange}
         endAdornment={endAdornment}
         {...rest}

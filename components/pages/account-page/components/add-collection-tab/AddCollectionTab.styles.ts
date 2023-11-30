@@ -75,31 +75,29 @@ export const addedPictureContainer: SxProps<Theme> = {
   height: '200px',
   position: 'relative',
   overflow: 'hidden',
-  '&.overlay': {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0,
-    backgroundColor: '#000000',
+  '&:hover .overlay': {
+    opacity: 1
   }
 };
 
 export const addedPictureLabel: SxProps<Theme> = {
   fontWeight: 300,
   textAlign: 'center',
-  mb: '5px',
+  fontSize: '24px',
+  fontFamily: 'Cormorant Infant',
 }
 
 export const overlay: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
-
+  alignItems: 'center',
+  backgroundColor: alpha('#000000', 0.5),
+  color: 'white',
   position: 'absolute',
   top: 0,
   right: 0,
   bottom: 0,
   left: 0,
-  backgroundColor: alpha('#000000', 0.5),
-  opacity: 0.5
+  opacity: 0,
+  transition: 'all 0.2s ease-in-out'
 }

@@ -9,12 +9,20 @@ export const checkValidCollection = (
   pictures: NewPicture[]
 ) => {
   let isValid = true;
+  let errors = []
 
   if (labelValidator(collection.name).length > 0 || collection.name === '') { isValid = false; }
   if (priceValidator(collection.price).length > 0 || collection.name === '') { isValid = false; }
   if (tagsValidator(collection.tags).length > 0) { isValid = false; }
-  if (collectionPreview === null) { isValid = false; }
-  if (pictures.length < 1) { isValid = false; }
+  if (!isValid) {
+    errors.push('Don\'t leave fields empty');
+  }
+  if (collectionPreview === null) {
+    errors.push('Collection must have a preview');
+  }
+  if (pictures.length < 1) {
+    errors.push('Collection must have at least one painting');
+  }
 
-  return isValid;
+  return errors;
 }
