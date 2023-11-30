@@ -53,7 +53,6 @@ const LoginPage = () => {
           endAdornment={
             <InputAdornment position="end" sx={{pr: '5px'}}>
               <IconButton
-                aria-label="toggle password visibility"
                 onClick={
                   () => passwordState === 'text' ?
                     setPasswordState('password')

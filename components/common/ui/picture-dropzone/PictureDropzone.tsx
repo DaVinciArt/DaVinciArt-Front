@@ -1,19 +1,21 @@
-import {Box, Typography} from "@mui/material";
+import {Box, SxProps, Theme, Typography} from "@mui/material";
 import Image from "next/image";
 import addImageIcon from "../../../../public/icons/add-image.png";
-import CustomButton from "../../../common/ui/custom-button/CustomButton";
-import {ButtonColor, ButtonSize, ButtonVariant} from "../../../common/ui/custom-button/types";
+import CustomButton from "../custom-button/CustomButton";
+import {ButtonColor, ButtonSize, ButtonVariant} from "../custom-button/types";
 import {ChangeEvent, Dispatch, FC, SetStateAction, DragEvent, useRef, useState} from "react";
-import {handleFileSelect} from "../utils/handleFileSelect";
+import {handleFileSelect} from "../../../pages/registration-page/utils/handleFileSelect";
 
-import * as styles from "./AvatarDropzone.styles";
+import * as styles from "./PictureDropzone.styles";
+import mergeSx from "../../../../lib/utils/MergeSxStylesUtil";
 
-interface AvatarDropzoneProps {
+interface PictureDropzoneProps {
   setFile: Dispatch<SetStateAction<File | null>>;
-  setAvatarURL: Dispatch<SetStateAction<string>>;
+  setPictureURL: Dispatch<SetStateAction<string>>;
+  sx?: SxProps<Theme>
 }
 
-const AvatarDropzone: FC<AvatarDropzoneProps> = ({setFile, setAvatarURL}) => {
+const PictureDropzone: FC<PictureDropzoneProps> = ({setFile, setPictureURL, sx}) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [imageInputError, setImageInputError] = useState('');
@@ -40,7 +42,7 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({setFile, setAvatarURL}) => {
         : event.target.files && event.target.files[0];
 
     if (file) {
-      handleFileSelect(file, setImageInputError, setFile, setAvatarURL);
+      handleFileSelect(file, setImageInputError, setFile, setPictureURL);
     }
   };
 
@@ -53,7 +55,7 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({setFile, setAvatarURL}) => {
   return (
     <Box>
       <Box
-        sx={styles.fileInputContainer}
+        sx={mergeSx(styles.fileInputContainer, sx)}
         onDragEnter={handleDragEnter}
         onDragLeave={handleDragLeave}
         onDragOver={event => event.preventDefault()}
@@ -82,4 +84,4 @@ const AvatarDropzone: FC<AvatarDropzoneProps> = ({setFile, setAvatarURL}) => {
   );
 };
 
-export default AvatarDropzone;
+export default PictureDropzone;

@@ -14,7 +14,6 @@ export const checkNewUser = (user : NewUser) => {
   if (namesValidator(user.last_name).length > 0 || user.last_name === '') { isValid = false; }
   if (emailValidator(user.email).length > 0 || user.email === '') { isValid = false; }
   if (passwordValidator(user.password).length > 0 || user.password === '') { isValid = false; }
-  if (!user.avatar) { isValid = false; }
 
   return isValid;
 }

@@ -6,4 +6,6 @@ export const REGEX = {
   LATIN:  /^[A-Za-z\s]+$/,
   ONLY_LATIN: /^[A-Za-z0-9\s!@#$%^&*()_+\-=[\]{};':"\\|,.<>\/?]+$/,
   SPACES: /\s/,
+  PRICE: /^\d+(\.\d+)?$/,
+  TAGS: /^(#\w+)(\s#\w+)*$/,
 };

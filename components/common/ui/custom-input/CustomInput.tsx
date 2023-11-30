@@ -4,7 +4,7 @@ import {
   Box,
   FormControl,
   InputLabel,
-  OutlinedInput,
+  OutlinedInput, SxProps, Theme,
   Typography
 } from "@mui/material";
 import {ChangeEvent, Dispatch, FC, InputHTMLAttributes, SetStateAction, useState} from "react";
@@ -13,21 +13,24 @@ import * as styles from './CustomInput.styles'
 import {validationMaper} from "./utils/validationMaper";
 import {NewUser} from "../../../../types/NewUser";
 import Image from "next/image";
+import mergeSx from "../../../../lib/utils/MergeSxStylesUtil";
 
 
 interface CustomInputProps {
   label: string;
   name: string;
+  sx?: SxProps<Theme>
   type? : string,
   validationFunc?: (value: string) => string[];
   endAdornment?: React.ReactNode;
-  object: NewUser | {username: string, password: string};
-  setObject?: Dispatch<SetStateAction<NewUser | {username: string, password: string}>>;
+  object?: any;
+  setObject?: Dispatch<SetStateAction<any>>;
 }
 
 const CustomInput: FC<CustomInputProps> = ({
 	label,
   name,
+  sx,
   type = 'text',
   validationFunc,
   endAdornment,
@@ -45,9 +48,8 @@ const CustomInput: FC<CustomInputProps> = ({
     setErrors(validationMaper[inputName](event.target.value))
   }
 
-	// @ts-ignore
   return (
-    <FormControl sx={{mb: '16px'}}>
+    <FormControl sx={mergeSx({mb: '16px'}, sx)}>
       <InputLabel htmlFor={label} sx={styles.inputLabel} size={'normal'}>
         {label}
       </InputLabel>

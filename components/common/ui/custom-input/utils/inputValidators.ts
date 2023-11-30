@@ -79,3 +79,33 @@ export const passwordValidator = (text: string) => {
 
   return errorMessages;
 };
+
+export const labelValidator = (text: string) => {
+  const errorMessages: string[] = [];
+
+  return errorMessages;
+};
+
+export const priceValidator = (text: string) => {
+  const errorMessages: string[] = [];
+
+  if (text.length > 0) {
+    if (!REGEX.PRICE.test(text)) {
+      errorMessages.push('First and last characters must be numbers')
+    }
+  }
+
+  return errorMessages;
+};
+
+export const tagsValidator = (text: string) => {
+  const errorMessages: string[] = [];
+
+  if (text.length > 0) {
+    if (!REGEX.TAGS.test(text)) {
+      errorMessages.push('Match the template in the description')
+    }
+  }
+
+  return errorMessages;
+};

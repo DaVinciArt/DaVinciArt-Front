@@ -11,7 +11,7 @@ import registerIcon from '../../../public/icons/register-icon.jpg';
 
 import * as sxStyles from './RegistrationPage.styles';
 import {useState} from "react";
-import AvatarDropzone from "./components/AvatarDropzone";
+import PictureDropzone from "../../common/ui/picture-dropzone/PictureDropzone";
 import {checkNewUser} from "./utils/checkNewUser";
 import {Visibility, VisibilityOff } from "@mui/icons-material";
 import {registerUser} from "../../../lib/api/api";
@@ -33,10 +33,10 @@ const RegistrationPage = () => {
     avatar: null,
   })
 
-
   const handleChangeImage = () => {
     setFile(null);
     setAvatarURL('');
+    setSaveImage(false);
   };
 
   const handleSaveImage = () => {
@@ -112,7 +112,7 @@ const RegistrationPage = () => {
             </Box>
           </Box>
         ) : (
-          <AvatarDropzone setFile={setFile} setAvatarURL={setAvatarURL} />
+          <PictureDropzone setFile={setFile} setPictureURL={setAvatarURL} />
         )}
 
         <CustomButton type='submit' text={'Register'} variant={ButtonVariant.CONTAINED} sx={{mt: '40px'}}/>

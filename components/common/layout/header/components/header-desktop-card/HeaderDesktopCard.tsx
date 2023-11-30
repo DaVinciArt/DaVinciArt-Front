@@ -1,6 +1,6 @@
 import { FC } from "react";
 import {User} from "../../../../../../types/User";
-import {Box, Typography} from "@mui/material";
+import {Avatar, Box, Typography} from "@mui/material";
 import Image from "next/image";
 import pesPatron from "../../../../../../public/icons/dog.png";
 import Link from "next/link";
@@ -14,8 +14,8 @@ interface HeaderDesktopCardProps {
 const HeaderDesktopCard: FC<HeaderDesktopCardProps> = ({user}) => {
   return (
     <Link href='/account' style={{display: 'flex', alignItems: 'center'}}>
-      <Box sx={styles.userCard}>
-        {user &&
+      {user &&
+        <Box sx={styles.userCard}>
           <Box>
             <Typography className="hover-underline" sx={styles.cardUsername}>
               {user.username}
@@ -25,9 +25,9 @@ const HeaderDesktopCard: FC<HeaderDesktopCardProps> = ({user}) => {
               <Image src={pesPatron} alt={'patron icon'} style={{width: '20px', height: 'auto', marginLeft: '7px'}}/>
             </Typography>
           </Box>
-        }
-        <Box sx={styles.avatar}></Box>
-      </Box>
+          <Avatar src={user.avatar} sx={styles.avatar}></Avatar>
+        </Box>
+      }
     </Link>
   );
 }

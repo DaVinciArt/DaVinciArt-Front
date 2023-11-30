@@ -7,7 +7,7 @@ import {ButtonVariant} from "../../ui/custom-button/types";
 import Link from "next/link";
 import MobileDrawer from "./components/mobile-drawer/MobileDrawer";
 import ROUTES from "./components/constants";
-import {usePathname} from "next/navigation";
+import {usePathname, useRouter} from "next/navigation";
 import StorageUtil from "../../../../lib/utils/StorageUtil";
 import {decodeToken} from "../../../../lib/utils/decodeToken";
 import {useEffect, useState} from "react";
@@ -16,8 +16,9 @@ import {STORAGE_KEYS} from "../../../../types/utils/storage";
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter()
   const [accessToken, setAccessToken] = useState('')
-  const [isLogged, setisLogged] = useState(!!accessToken)
+  const [isLogged, setisLogged] = useState(true);
   const isLoginOrRegister = ['/login', '/register'].includes(pathname);
   const user =
     decodeToken(accessToken)?.dataValues ?
@@ -32,6 +33,10 @@ const Header = () => {
   useEffect(() => {
     setisLogged(!!accessToken)
   }, [accessToken]);
+
+  if (pathname.includes('account') && !isLogged) {
+    router.push('/login')
+  }
 
   return (
     <header>

@@ -60,7 +60,11 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
     (
       <Box>
         <Box sx={styles.userInformationContainer}>
-          <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} sx={styles.avatar}/>
+          {user.avatar ?
+            <Avatar src={user.avatar} sx={styles.avatar}/>
+            :
+            <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} sx={styles.avatar}/>
+          }
           <Box sx={styles.textInformation}>
             <Typography sx={styles.username}>{user.username}</Typography>
             <Box sx={styles.textBox}>
@@ -81,7 +85,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
           </Box>
         </Box>
         <Box>
-          <Typography sx={styles.collectionsHeader}>Yor collections</Typography>
+          <Typography sx={styles.collectionsHeader}>Your collections</Typography>
           <Box sx={styles.collectionsContainer}>
             {collections ?
               (
