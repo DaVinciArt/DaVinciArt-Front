@@ -46,7 +46,7 @@ export const createCollection = async (
   const now = new Date()
 
   formData.append('name', collection.name);
-  formData.append('price', collection.name);
+  formData.append('price', collection.price);
   formData.append('tags', collection.tags);
   formData.append('upload_date', now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear());
   formData.append('preview', collectionPreview, 'preview' + Date.now() + '.' + collectionPreview.type.split('/')[1]);

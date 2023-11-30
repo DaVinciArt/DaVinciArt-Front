@@ -1,5 +1,5 @@
 export type NewCollection = {
   name: string,
-  price: string,
+  price: number,
   tags: string,
 }

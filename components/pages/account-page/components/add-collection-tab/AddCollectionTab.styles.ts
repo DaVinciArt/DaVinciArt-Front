@@ -1,4 +1,4 @@
-import {SxProps, Theme} from "@mui/material";
+import {alpha, SxProps, Theme} from "@mui/material";
 
 export const collectionParameters: SxProps<Theme> = {
   width: '100%',
@@ -92,11 +92,14 @@ export const addedPictureLabel: SxProps<Theme> = {
 }
 
 export const overlay: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'center',
+
   position: 'absolute',
   top: 0,
   right: 0,
   bottom: 0,
   left: 0,
-  backgroundColor: '#000000',
+  backgroundColor: alpha('#000000', 0.5),
   opacity: 0.5
 }
