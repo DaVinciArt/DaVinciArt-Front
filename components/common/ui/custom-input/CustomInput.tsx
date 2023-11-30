@@ -44,7 +44,11 @@ const CustomInput: FC<CustomInputProps> = ({
     const inputName = event.target.name.toUpperCase();
     const { name, value } = event.target;
 
-    setObject({...object, [name]: value})
+    if (typeof object === 'object') {
+      setObject({...object, [name]: value})
+    } else {
+      setObject(value)
+    }
     setErrors(validationMaper[inputName](event.target.value))
   }
 

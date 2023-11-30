@@ -17,7 +17,7 @@ export const validationMaper: ValidatorMap = {
   LAST_NAME: namesValidator,
   EMAIL: emailValidator,
   PASSWORD: passwordValidator,
-  LABEL: labelValidator,
+  NAME: labelValidator,
   PRICE: priceValidator,
   TAGS: tagsValidator,
   PICTURE_LABEL: labelValidator,

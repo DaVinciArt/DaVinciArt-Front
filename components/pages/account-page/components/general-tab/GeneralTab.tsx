@@ -25,7 +25,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
 
   let collections: Collection[] = [
     {
-      label: 'Hands',
+      name: 'Hands',
       authorID: 0,
       previewImage: hands,
       creationDate: 0,
@@ -33,7 +33,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
       status: CollectionStatus.FOR_SALE
     },
     {
-      label: 'Hands',
+      name: 'Hands',
       authorID: 0,
       previewImage: hands,
       creationDate: 0,
@@ -41,7 +41,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
       status: CollectionStatus.FOR_SALE
     },
     {
-      label: 'Hands',
+      name: 'Hands',
       authorID: 0,
       previewImage: hands,
       creationDate: 0,

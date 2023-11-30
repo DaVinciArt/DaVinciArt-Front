@@ -12,11 +12,12 @@ import Link from "next/link";
 import StorageUtil from "../../../lib/utils/StorageUtil";
 import {decodeToken} from "../../../lib/utils/decodeToken";
 import AddCollectionTab from "./components/add-collection-tab/AddCollectionTab";
+import {User} from "../../../types/User";
 
 const AccountPage = () => {
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
   const [accessToken, setAccessToken] = useState(StorageUtil.getAccessToken());
-  const user =
+  const user: User =
     decodeToken(accessToken)?.dataValues ?
       decodeToken(accessToken).dataValues
       :
@@ -59,7 +60,7 @@ const AccountPage = () => {
           <GeneralTab user={user}/>
         </TabPanel>
         <TabPanel value={AccountPageTab.ADD_COLLECTION} currentValue={index}>
-          <AddCollectionTab/>
+          <AddCollectionTab userID={user.id}/>
         </TabPanel>
         <TabPanel value={AccountPageTab.GET_MONEY} currentValue={index}>Get money</TabPanel>
       </Box>

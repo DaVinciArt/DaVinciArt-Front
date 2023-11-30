@@ -38,10 +38,16 @@ export const divider: SxProps<Theme> = {
   borderBottom: '1px solid #5D2A42'
 }
 
+export const paintingsContainer: SxProps<Theme> = {
+  display: 'flex',
+  gap: '40px',
+  flexWrap: 'wrap',
+  padding: '20px 10px'
+}
+
 export const addPaintingContainer: SxProps<Theme> = {
   width: '320px',
   height: 'fit-content',
-  padding: '20px 10px'
 }
 
 export const paintingDropzone: SxProps<Theme> = {
@@ -55,4 +61,31 @@ export const paintingDropzone: SxProps<Theme> = {
 export const paintingLabel: SxProps<Theme> = {
   width: '100%',
   mt: '15px',
+}
+
+export const paintingControls: SxProps<Theme> = {
+  display: 'flex',
+  gap: '15px',
+}
+
+export const addedPictureContainer = (label: string): SxProps<Theme> => ({
+  borderRadius: '15px',
+  width: 'auto',
+  height: '200px',
+  overflow: 'hidden',
+  '&:hover .controlsBlock': {
+    transform: label ? 'translateY(-85px)' : 'translateY(-62px)'
+  }
+});
+
+export const addedPictureLabel: SxProps<Theme> = {
+  fontWeight: 300,
+  textAlign: 'center',
+  mb: '5px',
+}
+
+export const controlsBlock: SxProps<Theme> = {
+  transition: 'all 0.3s ease-in-out',
+  padding: '10px 10px 50px',
+  backgroundColor: 'white',
 }

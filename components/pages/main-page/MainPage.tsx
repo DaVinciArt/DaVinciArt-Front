@@ -21,17 +21,17 @@ const MainPage = () => {
   let images: ColectionImage[] = [
     {
       url: hands,
-      label: 'Hands',
+      name: 'Hands',
       author: 'Michael Jordan',
     },
     {
       url: trees,
-      label: 'Trees',
+      name: 'Trees',
       author: 'Stephen Curry',
     },
     {
       url: queen,
-      label: 'Second',
+      name: 'Second',
       author: 'Arsen Martynenko',
     },
   ]

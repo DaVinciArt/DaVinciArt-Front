@@ -1,7 +1,7 @@
 import {StaticImageData} from "next/image";
 
 export type Collection = {
-  label: string,
+  name: string,
   authorID: number,
   previewImage: StaticImageData,
   creationDate: number,

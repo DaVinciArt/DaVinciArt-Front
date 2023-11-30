@@ -6,6 +6,7 @@ import {ButtonColor, ButtonSize, ButtonVariant} from "./types";
 import {color} from "@mui/system";
 
 interface ButtonProps {
+  className?: string
   text: string,
 	color?: ButtonColor;
 	variant?: ButtonVariant;
@@ -21,6 +22,7 @@ interface ButtonProps {
 const CustomButton: FC<ButtonProps> = (
 	{
 		text,
+    className,
 		color= ButtonColor.PRIMARY,
 		variant= ButtonVariant.OUTLINED,
     size = ButtonSize.MEDIUM,
@@ -29,7 +31,7 @@ const CustomButton: FC<ButtonProps> = (
 		...rest
 	}) => {
 	return (
-		<Button sx={mergeSx(styles.button(color, variant, size), sx)} {...rest}>
+		<Button className={className} sx={mergeSx(styles.button(color, variant, size), sx)} {...rest}>
       {icon && <Box sx={{width: '30px'}}>{icon}</Box>}
       <Typography sx={styles.text(size)}>{text}</Typography>
     </Button>
