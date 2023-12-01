@@ -44,11 +44,14 @@ export const createCollection = async (
 ) => {
   const formData = new FormData();
   const now = new Date()
+  const day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate()
+  const month = now.getMonth() < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1
+  const year = now.getFullYear()
 
   formData.append('name', collection.name);
   formData.append('price', collection.price);
   formData.append('tags', collection.tags);
-  formData.append('upload_date', now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear());
+  formData.append('upload_date', day + '.' + month + '.' + year);
   formData.append('preview', collectionPreview, 'preview' + Date.now() + '.' + collectionPreview.type.split('/')[1]);
 
   paintings.forEach((painting, index) => {
@@ -68,5 +71,57 @@ export const createCollection = async (
     console.log(response)
   } catch (message) {
     console.error(`An error occurred while creating collection with label: ${collection.name}`, message)
+  }
+};
+
+export const getUserCollections = async (userId: number) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/user/collection/${userId}/getAll`, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response.data
+  } catch (message) {
+    console.error(`An error occurred while receiving collections with authorId: ${userId}`, message)
+  }
+};
+
+export const getCollection = async (collectionId: number) => {
+  try {
+    const response = await axios.get(`http://localhost:3001/user/collection/${collectionId}/get`, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response.data
+  } catch (message) {
+    console.error(`An error occurred while receiving collection Id: ${collectionId}`, message)
+  }
+};
+
+export const editUser = async (userData) => {
+  try {
+    const response = await axios.post(`http://localhost:3001/user/update`, userData,{
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    StorageUtil.updateAccessToken(response.data)
+  } catch (message) {
+    console.error(`An error occurred while updating user`, message)
+  }
+};
+
+export const deleteUser = async (username: string) => {
+  try {
+    const response = await axios.post(`http://localhost:3001/user/delete`, username,{
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    console.log(response.status)
+  } catch (message) {
+    console.error(`An error occurred while deleting user with username: ${username}`, message)
   }
 };

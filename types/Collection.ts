@@ -1,16 +1,20 @@
-import {StaticImageData} from "next/image";
+import { Painting } from "./Painting";
 
 export type Collection = {
+  id: string
   name: string,
-  authorID: number,
-  previewImage: StaticImageData,
-  creationDate: number,
-  price: number,
+  author_id: number,
+  author_name: string,
+  upload_date: string,
+  preview_image_url: string,
+  tags: string[],
   status: CollectionStatus,
+  price: number,
+  Paintings?: Painting[]
 };
 
 export enum CollectionStatus  {
   FOR_SALE = 'For sale',
-  PRIVATE= 'Private',
+  PRIVATE= 'On fold',
 }
 

@@ -28,6 +28,11 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     setUser(user);
   };
 
+  const update = (token: string) => {
+    logout()
+    login(token)
+  };
+
   const logout = () => {
     StorageUtil.removeAccessToken()
     setUser(null);

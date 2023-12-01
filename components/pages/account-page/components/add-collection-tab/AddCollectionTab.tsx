@@ -13,12 +13,14 @@ import {checkValidCollection} from "./utils/checkValidCollection";
 import {createCollection} from "../../../../../lib/api/api";
 import bin from '../../../../../public/icons/bin.png'
 import Image from "next/image";
+import {useRouter} from "next/navigation";
 
 interface AddCollectionTabProps {
   userID: number
 }
 
 const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
+  const router = useRouter();
   const [previewFile, setPreviewFile] = useState<Blob | null>(null);
   const [previewURL, setPreviewURL] = useState('');
   const [collectionParams, setCollectionParams] = useState({
@@ -76,6 +78,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     if(errors.length === 0) {
       await createCollection(userID, collectionParams, previewFile, collectionPaintings)
       clearForm()
+      router.push('/account')
     } else {
       setPageErrors(errors)
       setTimeout(() => setPageErrors([]), 5000)
@@ -86,7 +89,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     <Box>
       <Box sx={styles.collectionParameters}>
         {previewURL ?
-          <Box>
+          <Box sx={styles.previewBlock}>
             <img src={previewURL} alt={'collection preview'} className={stylesCSS['collectionPreview']}/>
             <CustomButton
               text='Change'
@@ -140,7 +143,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
             <Box>
               <img src={paintingURL} alt={'new picture'} className={stylesCSS['newPicture']}/>
               <CustomInput
-                label={"Painting label"}
+                label={"NewPainting label"}
                 name={"painting_label"}
                 object={paintingLabel}
                 setObject={setPaintingLabel}

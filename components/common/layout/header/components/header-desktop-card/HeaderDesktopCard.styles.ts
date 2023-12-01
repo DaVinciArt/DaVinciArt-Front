@@ -47,5 +47,4 @@ export const avatar: SxProps<Theme> = {
   width: '50px',
   height: '50px',
   borderRadius: '50%',
-  backgroundColor: '#b5838d'
 };

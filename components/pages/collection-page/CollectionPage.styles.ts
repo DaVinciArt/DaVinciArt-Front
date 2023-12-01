@@ -1,35 +1,55 @@
 import {alpha, SxProps, Theme} from "@mui/material";
 
-export const collectionParameters: SxProps<Theme> = {
-  width: '100%',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  gap: '40px',
-  flexDirection: {
-    xs: 'column',
-    md: 'row'
-  }
+export const container: SxProps<Theme> = {
+  maxWidth: '1000px',
+  margin: '0 auto',
+  padding: '40px 20px',
 }
 
-export const previewBlock: SxProps<Theme> = {
+export const collectionBlock: SxProps<Theme> = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  gap: '40px',
+}
+
+export const textBlock: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  alignItems: 'center',
+  gap: '15px',
 }
 
-export const previewDropzone: SxProps<Theme> = {
-  width: '100%',
-  height: {
-    xs: 'fit-content',
-    sm: '320px',
-  },
-}
-
-export const formHeader: SxProps<Theme> = {
-  fontSize: '35px',
+export const collectionHeader: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
+  fontWeight: 400,
+  color: '#3b3b3b',
+  whiteSpace: 'nowrap',
+  textAlign: {
+    xs: 'center',
+    md: 'left',
+  },
+  fontSize: {
+    xs: 'calc(1.5rem + 1.5vw)',
+    lg: '2.5rem',
+  },
+  mt: {
+    xs: '15px',
+    md: '0',
+  }
+}
+
+export const otherText: SxProps<Theme> = {
+  fontWeight: 400,
+  fontSize: '18px',
+  color: '#6e6e6e',
+  opacity: 0.85,
+  border: '1px solid #b5838d',
+  borderRadius: '7px',
+  padding: '6px 20px',
+  display: 'flex',
+  alignItems: 'center',
+  width: '100%'
 }
 
 export const divider: SxProps<Theme> = {
@@ -40,43 +60,20 @@ export const divider: SxProps<Theme> = {
     lg: '2.5rem',
   },
   color: '#3b3b3b',
-  mt: '40px',
+  m: '20px 0',
   textAlign: 'center',
   borderBottom: '1px solid #5D2A42'
 }
 
-export const paintingsContainer: SxProps<Theme> = {
+export const paintingsBlock: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
-  gap: '40px',
+  alignItems: 'center',
   flexWrap: 'wrap',
-  padding: '20px 10px'
+  gap: '30px',
 }
 
-export const addPaintingContainer: SxProps<Theme> = {
-  width: '320px',
-  height: 'fit-content',
-}
-
-export const paintingDropzone: SxProps<Theme> = {
-  width: '100%',
-  height: {
-    xs: 'fit-content',
-    sm: '200px',
-  },
-}
-
-export const paintingLabel: SxProps<Theme> = {
-  width: '100%',
-  mt: '15px',
-}
-
-export const paintingControls: SxProps<Theme> = {
-  display: 'flex',
-  gap: '15px',
-}
-
-export const addedPictureContainer: SxProps<Theme> = {
+export const paintingContainer: SxProps<Theme> = {
   borderRadius: '10px',
   width: 'auto',
   height: '200px',
@@ -85,9 +82,9 @@ export const addedPictureContainer: SxProps<Theme> = {
   '&:hover .overlay': {
     opacity: 1
   }
-};
+}
 
-export const addedPictureLabel: SxProps<Theme> = {
+export const paintingName: SxProps<Theme> = {
   fontWeight: 300,
   textAlign: 'center',
   fontSize: '24px',

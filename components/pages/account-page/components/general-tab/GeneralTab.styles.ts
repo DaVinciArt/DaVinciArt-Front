@@ -58,23 +58,23 @@ export const other: SxProps<Theme> = {
   fontWeight: 400,
   fontSize: '18px',
   color: '#6e6e6e',
-  opacity: 0.7,
+  opacity: 0.85,
   border: '1px solid #b5838d',
   borderRadius: '7px',
   padding: '6px 20px',
   display: 'flex',
   alignItems: 'center',
-  width: {
-    xs: '100%',
-    sm: 'fit-content',
-  }
+  width: '100%'
 }
 
-export const logOutButton: SxProps<Theme> = {
-  width: {
-    xs: '100%',
-    sm: 'fit-content',
-  }
+export const controlButton: SxProps<Theme> = {
+  width: '100%'
+}
+
+export const userControls: SxProps<Theme> = {
+  width: '100%',
+  display: 'flex',
+  gap: '15px'
 }
 
 export const collectionsHeader: SxProps<Theme> = {
@@ -95,7 +95,7 @@ export const collectionsContainer: SxProps<Theme> = {
   justifyContent: 'center',
   flexWrap: 'wrap',
   gap: '30px',
-  margin: '40px',
+  marginTop: '30px',
 }
 
 export const noCollections: SxProps<Theme> = {
@@ -103,6 +103,5 @@ export const noCollections: SxProps<Theme> = {
   fontWeight: 400,
   fontSize: '28px',
   color: '#6e6e6e',
-  mt: '10px',
   textAlign: 'center',
 }

@@ -1,5 +1,4 @@
-import {Box} from "@mui/material";
-
+import CollectionPage from "../../../components/pages/collection-page/CollectionPage";
 interface CollectionPageParams {
   params: {
     collectionId: number
@@ -7,9 +6,9 @@ interface CollectionPageParams {
 }
 
 const Collection = ({params: {collectionId}}: CollectionPageParams) => {
-  const collection = null
+
   return (
-    <Box></Box>
+    <CollectionPage collectionId={collectionId}/>
   );
 }
 export default Collection;
