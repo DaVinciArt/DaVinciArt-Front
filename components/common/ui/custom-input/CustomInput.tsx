@@ -7,12 +7,10 @@ import {
   OutlinedInput, SxProps, Theme,
   Typography
 } from "@mui/material";
-import {ChangeEvent, Dispatch, FC, InputHTMLAttributes, SetStateAction, useState} from "react";
+import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from "react";
 
 import * as styles from './CustomInput.styles'
 import {validationMaper} from "./utils/validationMaper";
-import {NewUser} from "../../../../types/NewUser";
-import Image from "next/image";
 import mergeSx from "../../../../lib/utils/MergeSxStylesUtil";
 
 
@@ -70,12 +68,9 @@ const CustomInput: FC<CustomInputProps> = ({
       />
       {(errors.length > 0) &&
         <Box sx={{color: 'red'}}>
-          <Typography component="div">
-            Check the entered data for compliance with the following requirements:
-          </Typography>
           {errors.map((error, index) => (
-            <Typography key={index} sx={{ml: '10px'}} component="div">
-              {index + 1}. {error}
+            <Typography key={index} sx={{ml: '5px'}} component="div">
+              {error}
             </Typography>
           ))}
         </Box>

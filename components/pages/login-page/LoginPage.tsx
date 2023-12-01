@@ -11,16 +11,19 @@ import Link from "next/link";
 import loginIcon from '../../../public/icons/open-door.png'
 
 import * as styles from './LoginPage.styles';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {checkLoginData} from "./utils/checkLoginData";
 import {Visibility, VisibilityOff} from "@mui/icons-material";
 import {useRouter} from "next/navigation";
 import {loginUser} from "../../../lib/api/api";
+import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
+import StorageUtil from "../../../lib/utils/StorageUtil";
 
 
 const LoginPage = () => {
   const [passwordState, setPasswordState] = useState('password');
   const router = useRouter();
+  const { login } = useContext(UserContext)
   const [loginData, setLoginData] = useState({
     username: '',
     password: '',
@@ -31,6 +34,7 @@ const LoginPage = () => {
 
     if (checkLoginData(loginData)) {
       await loginUser(loginData);
+      login(StorageUtil.getAccessToken())
       router.push('/');
     }
   };

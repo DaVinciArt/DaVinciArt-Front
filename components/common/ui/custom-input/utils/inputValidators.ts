@@ -83,6 +83,12 @@ export const passwordValidator = (text: string) => {
 export const labelValidator = (text: string) => {
   const errorMessages: string[] = [];
 
+  if (text.length > 0) {
+    if (!REGEX.ONLY_LATIN.test(text)) {
+      errorMessages.push('Latin letters only')
+    }
+  }
+
   return errorMessages;
 };
 

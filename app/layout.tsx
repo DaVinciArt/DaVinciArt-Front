@@ -7,6 +7,7 @@ import Footer from "../components/common/layout/footer/Footer";
 
 import './globals.css';
 import {Box, createTheme, ThemeProvider} from "@mui/material";
+import { UserProvider } from "../lib/hooks/use-authentication/useAuthentication";
 
 const theme = createTheme({
   palette: {
@@ -35,9 +36,11 @@ const RootLayout =({
       </head>
       <body>
         <ThemeProvider theme={theme}>
-          <Header/>
-          <Box sx={{minHeight: '90vh'}}>{children}</Box>
-          <Footer/>
+          <UserProvider>
+            <Header/>
+            <Box sx={{minHeight: '90vh'}}>{children}</Box>
+            <Footer/>
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

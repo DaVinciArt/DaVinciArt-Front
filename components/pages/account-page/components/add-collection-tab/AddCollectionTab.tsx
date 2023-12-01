@@ -8,7 +8,7 @@ import {FC, useState} from "react";
 import CustomInput from "../../../../common/ui/custom-input/CustomInput";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
 import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
-import {NewPicture} from "../../../../../types/NewPicture";
+import {NewPainting} from "../../../../../types/NewPainting";
 import {checkValidCollection} from "./utils/checkValidCollection";
 import {createCollection} from "../../../../../lib/api/api";
 import bin from '../../../../../public/icons/bin.png'
@@ -26,26 +26,26 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     price: '',
     tags: '',
   })
-  const [pictureFile, setPictureFile] = useState<Blob | null>(null);
-  const [pictureURL, setPictureURL] = useState('');
-  const [pictureLabel, setPictureLabel] = useState('');
-  const [collectionPaintings, setCollectionPaintings] = useState<NewPicture[]>([])
+  const [paintingFile, setPaintingFile] = useState<Blob | null>(null);
+  const [paintingURL, setPaintingURL] = useState('');
+  const [paintingLabel, setPaintingLabel] = useState('');
+  const [collectionPaintings, setCollectionPaintings] = useState<NewPainting[]>([])
   const [pageErrors, setPageErrors] = useState([])
 
   const handleAdd = () => {
     setCollectionPaintings([...collectionPaintings, {
-      picture_name: pictureLabel,
-      image: pictureFile,
-      link: pictureURL,
+      name: paintingLabel,
+      image: paintingFile,
+      link: paintingURL,
       id: Date.now()
     }])
     handleCansel()
   }
 
   const handleCansel = () => {
-    setPictureLabel('');
-    setPictureFile(null);
-    setPictureURL('');
+    setPaintingLabel('');
+    setPaintingFile(null);
+    setPaintingURL('');
   }
 
   const handleChangePreview = () => {
@@ -128,7 +128,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
           <Box>
             <CustomButton type='submit' text={"Create collection"} sx={{width: '100%'}}/>
             {pageErrors.length > 0 && pageErrors.map((error, index) => (
-              <Typography key={index} sx={{color: 'red'}}> - {error}</Typography>
+              <Typography key={index} sx={{color: 'red'}}> {error}</Typography>
             ))}
           </Box>
         </form>
@@ -136,14 +136,14 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       <Typography sx={styles.divider}>Add paintings to collection</Typography>
       <Box sx={styles.paintingsContainer}>
         <Box sx={styles.addPaintingContainer}>
-          {pictureURL ?
+          {paintingURL ?
             <Box>
-              <img src={pictureURL} alt={'new picture'} className={stylesCSS['newPicture']}/>
+              <img src={paintingURL} alt={'new picture'} className={stylesCSS['newPicture']}/>
               <CustomInput
-                label={"Picture label"}
-                name={"picture_label"}
-                object={pictureLabel}
-                setObject={setPictureLabel}
+                label={"Painting label"}
+                name={"painting_label"}
+                object={paintingLabel}
+                setObject={setPaintingLabel}
                 sx={styles.paintingLabel}
               />
               <Box sx={styles.paintingControls}>
@@ -164,17 +164,17 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
             </Box>
             :
             <PictureDropzone
-              setFile={setPictureFile}
-              setPictureURL={setPictureURL}
+              setFile={setPaintingFile}
+              setPictureURL={setPaintingURL}
               sx={styles.paintingDropzone}
             />
           }
         </Box>
         {collectionPaintings && collectionPaintings.map((painting, index) => (
           <Box key={index} sx={styles.addedPictureContainer}>
-            <img src={painting.link} alt={painting.picture_name} className={stylesCSS['addedPicture']}/>
+            <img src={painting.link} alt={painting.name} className={stylesCSS['addedPicture']}/>
             <Box className='overlay' sx={styles.overlay}>
-              <Typography sx={styles.addedPictureLabel}>{painting.picture_name}</Typography>
+              <Typography sx={styles.addedPictureLabel}>{painting.name}</Typography>
               <Image
                 src={bin}
                 alt={"delete icon"}

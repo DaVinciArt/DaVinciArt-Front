@@ -3,7 +3,8 @@ import {
   labelValidator,
   namesValidator,
   passwordValidator,
-  priceValidator, tagsValidator,
+  priceValidator,
+  tagsValidator,
   usernameValidator
 } from "./inputValidators";
 
@@ -20,5 +21,5 @@ export const validationMaper: ValidatorMap = {
   NAME: labelValidator,
   PRICE: priceValidator,
   TAGS: tagsValidator,
-  PICTURE_LABEL: labelValidator,
+  PAINTING_LABEL: labelValidator,
 }

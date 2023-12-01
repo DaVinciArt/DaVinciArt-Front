@@ -7,36 +7,15 @@ import {ButtonVariant} from "../../ui/custom-button/types";
 import Link from "next/link";
 import MobileDrawer from "./components/mobile-drawer/MobileDrawer";
 import ROUTES from "./components/constants";
-import {usePathname, useRouter} from "next/navigation";
-import StorageUtil from "../../../../lib/utils/StorageUtil";
-import {decodeToken} from "../../../../lib/utils/decodeToken";
-import {useEffect, useState} from "react";
+import {usePathname} from "next/navigation";
+import {useContext} from "react";
 import HeaderDesktopCard from "./components/header-desktop-card/HeaderDesktopCard";
-import {STORAGE_KEYS} from "../../../../types/utils/storage";
+import {UserContext} from "../../../../lib/hooks/use-authentication/useAuthentication";
 
 const Header = () => {
   const pathname = usePathname();
-  // const router = useRouter()
-  const [accessToken, setAccessToken] = useState('')
-  const [isLogged, setisLogged] = useState(true);
   const isLoginOrRegister = ['/login', '/register'].includes(pathname);
-  const user =
-    decodeToken(accessToken)?.dataValues ?
-      decodeToken(accessToken).dataValues
-      :
-      decodeToken(accessToken);
-
-  useEffect(() => {
-    setAccessToken(StorageUtil.getAccessToken())
-  }, [localStorage.getItem(STORAGE_KEYS.ACCESS_TOKEN)]);
-
-  useEffect(() => {
-    setisLogged(!!accessToken)
-  }, [accessToken]);
-
-  // if (pathname.includes('account') && !isLogged) {
-  //   router.push('/login')
-  // }
+  const { user } = useContext(UserContext)
 
   return (
     <header>
@@ -47,7 +26,7 @@ const Header = () => {
           </Typography>
         </Link>
         <Box sx={{display: isLoginOrRegister ? 'none' : 'flex'}}>
-          {isLogged ?
+          {user ?
             <HeaderDesktopCard user={user}/>
             :
             <Box sx={styles.controls}>

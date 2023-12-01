@@ -33,8 +33,8 @@ const CustomCarousel: FC<CarouselProps> = ({ images })=> {
     >
       {images && images.map((image, index) => (
         <Box key={index} sx={sxStyles.collectionContainer}>
-          <Image src={image.url} alt={image.label} className={styles['image']}/>
-          <Typography sx={sxStyles.collectionHeading}>Collection "{image.label}"</Typography>
+          <Image src={image.url} alt={image.name} className={styles['image']}/>
+          <Typography sx={sxStyles.collectionHeading}>Collection "{image.name}"</Typography>
           <Typography sx={sxStyles.collectionAuthor}>Author: {image.author}</Typography>
         </Box>
       ))}

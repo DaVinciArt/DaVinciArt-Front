@@ -10,15 +10,18 @@ import Link from "next/link";
 import registerIcon from '../../../public/icons/register-icon.jpg';
 
 import * as sxStyles from './RegistrationPage.styles';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import PictureDropzone from "../../common/ui/picture-dropzone/PictureDropzone";
 import {checkNewUser} from "./utils/checkNewUser";
 import {Visibility, VisibilityOff } from "@mui/icons-material";
 import {registerUser} from "../../../lib/api/api";
 import { useRouter } from "next/navigation";
+import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
+import StorageUtil from "../../../lib/utils/StorageUtil";
 
 
 const RegistrationPage = () => {
+  const { login } = useContext(UserContext)
   const [file, setFile] = useState<Blob | null>(null);
   const [avatarURL, setAvatarURL] = useState('');
   const [passwordState, setPasswordState] = useState('password');
@@ -49,6 +52,7 @@ const RegistrationPage = () => {
 
     if (checkNewUser(user)) {
       await registerUser(user);
+      login(StorageUtil.getAccessToken())
       router.push('/');
     }
   };

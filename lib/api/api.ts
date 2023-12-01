@@ -3,8 +3,8 @@ import {NewUser} from "../../types/NewUser";
 import {LoginData} from "../../types/LoginData";
 import StorageUtil from "../utils/StorageUtil";
 import {NewCollection} from "../../types/NewCollection";
-import {NewPicture} from "../../types/NewPicture";
-import {formatName} from "metro/src/shared/output/bundle";
+import {NewPainting} from "../../types/NewPainting";
+
 
 export const registerUser = async (user: NewUser) => {
   const formData = new FormData();
@@ -40,7 +40,7 @@ export const createCollection = async (
   userId: number,
   collection: NewCollection,
   collectionPreview: Blob,
-  pictures: NewPicture[]
+  paintings: NewPainting[]
 ) => {
   const formData = new FormData();
   const now = new Date()
@@ -51,15 +51,15 @@ export const createCollection = async (
   formData.append('upload_date', now.getDate() + '.' + (now.getMonth() + 1) + '.' + now.getFullYear());
   formData.append('preview', collectionPreview, 'preview' + Date.now() + '.' + collectionPreview.type.split('/')[1]);
 
-  pictures.forEach((picture, index) => {
-    formData.append(`pictures[${index}][picture_name]`, picture.picture_name);
-    formData.append(`pictures[${index}][image]`,
-      picture.image,
-      `pictures[${index}][picture_name]` + Date.now() + '.' + picture.image.type.split('/')[1]);
+  paintings.forEach((painting, index) => {
+    formData.append(`paintings[${index}][name]`, painting.name);
+    formData.append(`paintings[${index}][image]`,
+      painting.image,
+      `paintings[${index}][name]` + Date.now() + '.' + painting.image.type.split('/')[1]);
   });
 
   try {
-    const response = await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
+    const response = await axios.post(`http://localhost:3001/user/collection/${userId}/add`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`

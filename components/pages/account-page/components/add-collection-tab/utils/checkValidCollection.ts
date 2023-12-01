@@ -1,12 +1,12 @@
 import {NewCollection} from "../../../../../../types/NewCollection";
-import {NewPicture} from "../../../../../../types/NewPicture";
+import {NewPainting} from "../../../../../../types/NewPainting";
 import {labelValidator, priceValidator, tagsValidator} from "../../../../../common/ui/custom-input/utils/inputValidators";
 
 
 export const checkValidCollection = (
   collection: NewCollection,
   collectionPreview: Blob,
-  pictures: NewPicture[]
+  paintings: NewPainting[]
 ) => {
   let isValid = true;
   let errors = []
@@ -20,7 +20,7 @@ export const checkValidCollection = (
   if (collectionPreview === null) {
     errors.push('Collection must have a preview');
   }
-  if (pictures.length < 1) {
+  if (paintings.length < 1) {
     errors.push('Collection must have at least one painting');
   }
 
