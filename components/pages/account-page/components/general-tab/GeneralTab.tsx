@@ -11,7 +11,6 @@ import CollectionCard from "../../../../common/ui/collection-card/CollectionCard
 import {stringAvatar} from "./utils/createNamedAvatar";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
 import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
-import {useRouter} from "next/navigation";
 import {User} from "../../../../../types/User";
 import {FC, useContext, useEffect, useState} from "react";
 import {UserContext} from "../../../../../lib/hooks/use-authentication/useAuthentication";
@@ -22,9 +21,7 @@ interface GeneralTabProps {
 }
 
 const GeneralTab: FC<GeneralTabProps> = ({user}) => {
-  const router = useRouter();
   const { logout } = useContext(UserContext);
-  const collectionsData: Promise<Collection[]> = getUserCollections(user.id)
   const [loading, setLoading] = useState<boolean>(false)
   const [collections, setCollections] = useState<Collection[]>(null)
   useEffect(() => {
@@ -40,13 +37,11 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
 
   const handleClick = () => {
     logout()
-    router.push('/login')
   }
 
   const handleDelete = () => {
     deleteUser(user.username)
     logout()
-    router.push('/register')
   }
 
   return (

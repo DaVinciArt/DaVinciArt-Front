@@ -19,16 +19,36 @@ export const previewBlock: SxProps<Theme> = {
   alignItems: 'center',
 }
 
+export const previewBlockText: SxProps<Theme> = {
+  fontSize: {
+    xs: 'calc(1.275rem + 0.3vw)',
+    lg: '1.5rem',
+  },
+  opacity: 0.7,
+  fontWeight: 300,
+  mt: '10px'
+}
+
 export const previewDropzone: SxProps<Theme> = {
-  width: '100%',
+  width: {
+    xs: '90%',
+    sm: '100%',
+  },
   height: {
-    xs: 'fit-content',
+    xs: '200px',
     sm: '320px',
   },
 }
 
 export const formHeader: SxProps<Theme> = {
-  fontSize: '35px',
+  fontSize: {
+    xs: 'calc(1.5rem + 1.5vw)',
+    lg: '2.5rem',
+  },
+  textAlign: {
+    xs: 'center',
+    md: 'left',
+  },
   fontFamily: 'Cormorant Infant',
 }
 
@@ -59,9 +79,12 @@ export const addPaintingContainer: SxProps<Theme> = {
 }
 
 export const paintingDropzone: SxProps<Theme> = {
-  width: '100%',
+  width: {
+    xs: '80%',
+    sm: '100%',
+  },
   height: {
-    xs: 'fit-content',
+    xs: '140px',
     sm: '200px',
   },
 }

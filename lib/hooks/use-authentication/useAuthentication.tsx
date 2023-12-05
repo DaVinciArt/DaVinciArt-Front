@@ -1,8 +1,8 @@
-import {ReactNode, createContext, useContext, useEffect, useState } from "react";
+import {ReactNode, createContext, useEffect, useState } from "react";
 import StorageUtil from "../../utils/StorageUtil";
 import {decodeToken} from "../../utils/decodeToken";
 import {AuthenticationContext} from "./types";
-import {User} from "../../../types/User";
+import {useRouter} from "next/navigation";
 
 export const UserContext = createContext<AuthenticationContext | undefined>(undefined);
 
@@ -12,6 +12,7 @@ interface UserProviderProps {
 
 export const UserProvider = ({ children }: UserProviderProps) => {
   const [user, setUser] = useState(null);
+  const router = useRouter()
 
   useEffect(() => {
 
@@ -26,20 +27,23 @@ export const UserProvider = ({ children }: UserProviderProps) => {
     StorageUtil.setAccessToken(token)
     const user = decodeToken(token);
     setUser(user);
+    console.log(user)
   };
 
   const update = (token: string) => {
-    logout()
+    StorageUtil.removeAccessToken()
+    setUser(null);
     login(token)
   };
 
   const logout = () => {
     StorageUtil.removeAccessToken()
     setUser(null);
+    router.push('/login')
   };
 
   return (
-    <UserContext.Provider value={{ user, login, logout }}>
+    <UserContext.Provider value={{ user, login, logout, update }}>
       {children}
     </UserContext.Provider>
   );

@@ -16,7 +16,7 @@ const GetMoneyTab: FC<GetMoneyTabProps> = ({userID}) => {
   const [isPatronSatisfied, setIsPatronSatisfied] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
-  const { user, logout} = useContext(UserContext)
+  const { user, update} = useContext(UserContext)
 
   const handleDragEnter = (event: DragEvent) => {
     event.preventDefault();
@@ -28,11 +28,6 @@ const GetMoneyTab: FC<GetMoneyTabProps> = ({userID}) => {
     setIsDragging(false);
   };
 
-  const sho = () => {
-    router.push('/login')
-    logout()
-  }
-
   const handleDropOrFileChange = (event: DragEvent | ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
     setIsDragging(false);
@@ -43,13 +38,14 @@ const GetMoneyTab: FC<GetMoneyTabProps> = ({userID}) => {
         : event.target.files && event.target.files[0];
 
     if (file) {
-      editUser({
+      setIsPatronSatisfied(true);
+      const updatedTokenData = editUser({
         username: user.username,
         balance: user.balance + 200,
       })
-      setIsPatronSatisfied(true);
-      setTimeout( sho, 5000)
-
+      updatedTokenData.then(updatedToken => {
+        update(updatedToken)
+      })
     }
   };
 

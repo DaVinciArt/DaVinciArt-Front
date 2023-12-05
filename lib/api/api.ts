@@ -1,9 +1,10 @@
-import axios from "axios";
+import axios from './axios';
 import {NewUser} from "../../types/NewUser";
 import {LoginData} from "../../types/LoginData";
 import StorageUtil from "../utils/StorageUtil";
 import {NewCollection} from "../../types/NewCollection";
 import {NewPainting} from "../../types/NewPainting";
+import {Collection} from "../../types/Collection";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -74,17 +75,17 @@ export const createCollection = async (
   }
 };
 
-export const getUserCollections = async (userId: number) => {
-  try {
-    const response = await axios.get(`http://localhost:3001/user/collection/${userId}/getAll`, {
-      headers: {
-        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
-      }
-    });
-    return response.data
-  } catch (message) {
-    console.error(`An error occurred while receiving collections with authorId: ${userId}`, message)
-  }
+export const getUserCollections = async (userId: number): Promise<Collection[]> => {
+  return axios.get('http://localhost:3001/user/collection/${userId}/getAll', {
+    headers: {
+      'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+    }
+  }).then(response => {
+    return response.data;
+  }).catch(message => {
+    console.error(`An error occurred while receiving collections with authorId: ${userId}`, message);
+    return null
+  });
 };
 
 export const getCollection = async (collectionId: number) => {
@@ -107,7 +108,7 @@ export const editUser = async (userData) => {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
     });
-    StorageUtil.updateAccessToken(response.data)
+    return response.data.accessToken
   } catch (message) {
     console.error(`An error occurred while updating user`, message)
   }
@@ -115,7 +116,7 @@ export const editUser = async (userData) => {
 
 export const deleteUser = async (username: string) => {
   try {
-    const response = await axios.post(`http://localhost:3001/user/delete`, username,{
+    const response = await axios.post(`http://localhost:3001/user/delete`, { username: username },{
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }

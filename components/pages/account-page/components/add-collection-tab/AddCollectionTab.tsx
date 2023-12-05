@@ -99,11 +99,14 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
             />
           </Box>
           :
-          <PictureDropzone
-            setFile={setPreviewFile}
-            setPictureURL={setPreviewURL}
-            sx={styles.previewDropzone}
-          />
+          <Box sx={styles.previewBlock}>
+            <PictureDropzone
+              setFile={setPreviewFile}
+              setPictureURL={setPreviewURL}
+              sx={styles.previewDropzone}
+            />
+            <Typography sx={styles.previewBlockText}>Choose preview picture</Typography>
+          </Box>
         }
         <form onSubmit={handleSubmit} className={stylesCSS['form']}>
           <Typography sx={styles.formHeader}>Create new collection</Typography>
@@ -182,7 +185,8 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
                 src={bin}
                 alt={"delete icon"}
                 className={stylesCSS['deleteIcon']}
-                onClick={() => handleDelete(painting.id)}/>
+                onClick={() => handleDelete(painting.id)}
+              />
             </Box>
           </Box>
         ))}

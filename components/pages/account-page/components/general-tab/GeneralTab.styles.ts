@@ -11,12 +11,18 @@ export const userInformationContainer: SxProps<Theme> = {
 }
 
 export const avatar: SxProps<Theme> = {
-  width: '250px',
-  height: '250px',
+  width: {
+    xs: '150px',
+    sm: '250px'
+  },
+  height: {
+    xs: '150px',
+    sm: '250px'
+  },
   fontSize: '50px',
   m: {
     xs: '0 auto',
-    md: ' 0 80px 0 0'
+    md: '0 80px 0 0'
   }
 }
 
@@ -39,8 +45,8 @@ export const username: SxProps<Theme> = {
     md: 'left',
   },
   fontSize: {
-    xs: '40px',
-    md: '50px',
+    xs: 'calc(1.9rem + 1.6vw)',
+    lg: '2.9rem',
   },
   mt: {
     xs: '15px',
@@ -101,7 +107,10 @@ export const collectionsContainer: SxProps<Theme> = {
 export const noCollections: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
   fontWeight: 400,
-  fontSize: '28px',
+  fontSize: {
+    xs: 'calc(1.325rem + 0.9vw)',
+    lg: '2rem',
+  },
   color: '#6e6e6e',
   textAlign: 'center',
 }
