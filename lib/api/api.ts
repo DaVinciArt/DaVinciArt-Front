@@ -1,10 +1,10 @@
-import axios from './axios';
 import {NewUser} from "../../types/NewUser";
 import {LoginData} from "../../types/LoginData";
 import StorageUtil from "../utils/StorageUtil";
 import {NewCollection} from "../../types/NewCollection";
 import {NewPainting} from "../../types/NewPainting";
 import {Collection} from "../../types/Collection";
+import axios from "axios";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -63,30 +63,30 @@ export const createCollection = async (
   });
 
   try {
-    const response = await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
+    return await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
     });
-    console.log(response)
   } catch (message) {
     console.error(`An error occurred while creating collection with label: ${collection.name}`, message)
   }
 };
 
 export const getUserCollections = async (userId: number): Promise<Collection[]> => {
-  return axios.get(`http://localhost:3001/user/${userId}/collection/getAll`, {
-    headers: {
-      'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+    try {
+        const response = await axios.get(`http://localhost:3001/user/${userId}/collection/getAll`, {
+            headers: {
+                'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+            }
+        });
+        return response.data
+    } catch (message) {
+        console.error(`An error occurred while receiving collections with authorId: ${userId}`, message);
     }
-  }).then(response => {
-    return response.data;
-  }).catch(message => {
-    console.error(`An error occurred while receiving collections with authorId: ${userId}`, message);
-    return null
-  });
 };
+
 
 export const getCollection = async (collectionId: number,userId: number) => {
   try {

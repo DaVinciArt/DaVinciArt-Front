@@ -12,7 +12,7 @@ export const checkValidCollection = (
   let errors = []
 
   if (labelValidator(collection.name).length > 0 || collection.name === '') { isValid = false; }
-  if (priceValidator(collection.price).length > 0 || collection.name === '') { isValid = false; }
+  if (priceValidator(collection.price).length > 0) { isValid = false; }
   if (tagsValidator(collection.tags).length > 0) { isValid = false; }
   if (!isValid) {
     errors.push('Don\'t leave fields empty');

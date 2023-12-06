@@ -4,7 +4,7 @@ import {Box, Typography} from "@mui/material";
 import * as styles from './AddCollectionTab.styles'
 import stylesCSS from './AddCollectionTab.module.scss'
 import PictureDropzone from "../../../../common/ui/picture-dropzone/PictureDropzone";
-import {FC, useState} from "react";
+import {FC, SetStateAction, useState} from "react";
 import CustomInput from "../../../../common/ui/custom-input/CustomInput";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
 import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
@@ -14,6 +14,8 @@ import {createCollection} from "../../../../../lib/api/api";
 import bin from '../../../../../public/icons/bin.png'
 import Image from "next/image";
 import {useRouter} from "next/navigation";
+import AddPaintingBlock from "./components/add-painting-block/AddPaintingBlock";
+import PaintingCard from "../../../../common/ui/painting-card/PaintingCard";
 
 interface AddCollectionTabProps {
   userID: number
@@ -28,27 +30,9 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     price: '',
     tags: '',
   })
-  const [paintingFile, setPaintingFile] = useState<Blob | null>(null);
-  const [paintingURL, setPaintingURL] = useState('');
-  const [paintingLabel, setPaintingLabel] = useState('');
   const [collectionPaintings, setCollectionPaintings] = useState<NewPainting[]>([])
   const [pageErrors, setPageErrors] = useState([])
-
-  const handleAdd = () => {
-    setCollectionPaintings([...collectionPaintings, {
-      name: paintingLabel,
-      image: paintingFile,
-      link: paintingURL,
-      id: Date.now()
-    }])
-    handleCansel()
-  }
-
-  const handleCansel = () => {
-    setPaintingLabel('');
-    setPaintingFile(null);
-    setPaintingURL('');
-  }
+  const [isCollectionCreated, setIsCollectionCreated] = useState<boolean>(false)
 
   const handleChangePreview = () => {
     setPreviewFile(null);
@@ -68,17 +52,20 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       tags: '',
     })
     setCollectionPaintings([])
-    handleCansel();
   }
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     const errors = checkValidCollection(collectionParams, previewFile, collectionPaintings);
 
-    if(errors.length === 0) {
-      await createCollection(userID, collectionParams, previewFile, collectionPaintings)
-      clearForm()
-      router.push('/account')
+    if (errors.length === 0) {
+      const response = await createCollection(userID, collectionParams, previewFile, collectionPaintings)
+      if (response.status === 200) {
+        clearForm()
+        setIsCollectionCreated(true)
+        setTimeout(() => setIsCollectionCreated(false), 100)
+      }
+
     } else {
       setPageErrors(errors)
       setTimeout(() => setPageErrors([]), 5000)
@@ -141,53 +128,19 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       </Box>
       <Typography sx={styles.divider}>Add paintings to collection</Typography>
       <Box sx={styles.paintingsContainer}>
-        <Box sx={styles.addPaintingContainer}>
-          {paintingURL ?
-            <Box>
-              <img src={paintingURL} alt={'new picture'} className={stylesCSS['newPicture']}/>
-              <CustomInput
-                label={"NewPainting label"}
-                name={"painting_label"}
-                object={paintingLabel}
-                setObject={setPaintingLabel}
-                sx={styles.paintingLabel}
-              />
-              <Box sx={styles.paintingControls}>
-                <CustomButton
-                  text={"Cancel"}
-                  color={ButtonColor.INPUT}
-                  sx={{width: '100%'}}
-                  onClick={handleCansel}
-                />
-                <CustomButton
-                  text={"Add"}
-                  color={ButtonColor.INPUT}
-                  variant={ButtonVariant.CONTAINED}
-                  sx={{width: '100%'}}
-                  onClick={handleAdd}
-                />
-              </Box>
-            </Box>
-            :
-            <PictureDropzone
-              setFile={setPaintingFile}
-              setPictureURL={setPaintingURL}
-              sx={styles.paintingDropzone}
-            />
-          }
-        </Box>
+        <AddPaintingBlock
+          collectionPaintings={collectionPaintings}
+          setCollectionPaintings={setCollectionPaintings}
+          isCollectionCreated={isCollectionCreated}
+        />
         {collectionPaintings && collectionPaintings.map((painting, index) => (
-          <Box key={index} sx={styles.addedPictureContainer}>
-            <img src={painting.link} alt={painting.name} className={stylesCSS['addedPicture']}/>
-            <Box className='overlay' sx={styles.overlay}>
-              <Typography sx={styles.addedPictureLabel}>{painting.name}</Typography>
-              <Image
-                src={bin}
-                alt={"delete icon"}
-                className={stylesCSS['deleteIcon']}
-                onClick={() => handleDelete(painting.id)}
-              />
-            </Box>
+          <Box key={index}>
+            <PaintingCard
+              painting={painting}
+              collectionPaintings={collectionPaintings}
+              setCollectionPaintings={setCollectionPaintings}
+              isNewPainting={true}
+            />
           </Box>
         ))}
       </Box>
