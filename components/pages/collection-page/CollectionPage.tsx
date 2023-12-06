@@ -22,7 +22,6 @@ interface CollectionPageProps {
 
 const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
   const [collection, setCollection] = useState<Collection | null>(null)
-  const [loading, setLoading] = useState<boolean>(false)
   const [isAuthor, setIsAuthor] = useState(false)
   const [collectionData, setCollectionData] = useState({
     price: '',
@@ -34,10 +33,8 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      setLoading(true);
       const result = await getCollection(userId, collectionId)
       setCollection(result);
-      setLoading(false)
     };
 
     fetchData();

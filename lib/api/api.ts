@@ -5,6 +5,7 @@ import {NewCollection} from "../../types/NewCollection";
 import {Collection} from "../../types/Collection";
 import axios from "axios";
 import { Painting } from "../../types/Painting";
+import {User} from "../../types/User";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -152,6 +153,15 @@ export const editCollection = async (
       }
     });
     return response.data.collection
+  } catch (message) {
+    console.error(`An error occurred while receiving the most popular collections`, message);
+  }
+};
+
+export const getAuthor = async (userId: number): Promise<User> => {
+  try {
+    const response = await axios.get(`http://localhost:3001/collection/getTopFive`);
+    return response.data
   } catch (message) {
     console.error(`An error occurred while receiving the most popular collections`, message);
   }

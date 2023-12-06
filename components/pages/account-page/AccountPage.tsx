@@ -1,7 +1,7 @@
 'use client';
 
 import {Box, Tab, Tabs} from "@mui/material";
-import {SyntheticEvent, useContext, useEffect, useState} from "react";
+import {FC, SyntheticEvent, useContext, useEffect, useState} from "react";
 import {AccountPageTab} from "./types";
 import {CurrencyDollarIcon, HomeIcon, PencilSquareIcon, PlusIcon} from "@heroicons/react/24/outline";
 import TabPanel from "../../common/ui/tab-panel/TabPanel";
@@ -13,8 +13,13 @@ import GetMoneyTab from "./components/get-money-tab/GetMoneyTab";
 import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
 import ReviewsTab from "./components/reviews-tab/ReviewsTab";
 import {useRouter, useSearchParams} from "next/navigation";
+import {getAuthor, getCollection} from "../../../lib/api/api";
 
-const AccountPage = () => {
+interface AccountPageProps {
+  userId?: number,
+}
+
+const AccountPage: FC<AccountPageProps> = ({userId}) => {
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
   const { user } = useContext(UserContext)
   const router = useRouter()
@@ -85,13 +90,15 @@ const AccountPage = () => {
           iconPosition={"start"}
           sx={{fontSize: '16px'}}
         />
-        <Tab
-          label="Add collection"
-          value={AccountPageTab.ADD_COLLECTION}
-          icon={<PlusIcon width={20} />}
-          iconPosition={"start"}
-          sx={{fontSize: '16px'}}
-        />
+        {!userId &&
+          <Tab
+            label="Add collection"
+            value={AccountPageTab.ADD_COLLECTION}
+            icon={<PlusIcon width={20} />}
+            iconPosition={"start"}
+            sx={{fontSize: '16px'}}
+          />
+        }
         <Tab
           label="Reviews"
           value={AccountPageTab.REVIEWS}
@@ -99,15 +106,17 @@ const AccountPage = () => {
           iconPosition={"start"}
           sx={{fontSize: '16px'}}
         />
-        <Tab
-          label="Get money"
-          value={AccountPageTab.GET_MONEY}
-          icon={<CurrencyDollarIcon width={20} />}
-          iconPosition={"start"}
-          sx={{fontSize: '16px'}}
-        />
+        {!userId &&
+          <Tab
+            label="Get money"
+            value={AccountPageTab.GET_MONEY}
+            icon={<CurrencyDollarIcon width={20} />}
+            iconPosition={"start"}
+            sx={{fontSize: '16px'}}
+          />
+        }
       </Tabs>
-      {user &&
+      {(user && !userId) &&
         <Box sx={styles.tabPanelContainer}>
           <TabPanel value={AccountPageTab.GENERAL} currentValue={index}>
             <GeneralTab user={user}/>
@@ -120,6 +129,17 @@ const AccountPage = () => {
           </TabPanel>
           <TabPanel value={AccountPageTab.GET_MONEY} currentValue={index}>
             <GetMoneyTab userID={user.id}/>
+          </TabPanel>
+        </Box>
+      }
+
+      {author &&
+        <Box sx={styles.tabPanelContainer}>
+          <TabPanel value={AccountPageTab.GENERAL} currentValue={index}>
+            <GeneralTab user={user}/>
+          </TabPanel>
+          <TabPanel value={AccountPageTab.REVIEWS} currentValue={index}>
+            <ReviewsTab reviews={reviews} userId={0}/>
           </TabPanel>
         </Box>
       }
