@@ -72,3 +72,16 @@ export const paintingsContainer: SxProps<Theme> = {
   flexWrap: 'wrap',
   padding: '20px 10px'
 }
+
+export const popupMessage = (open: boolean): SxProps<Theme> => ({
+  position: 'absolute',
+  bottom: '40px',
+  right: '40px',
+  padding: '12px 20px',
+  borderRadius: '10px',
+  color: 'white',
+  zIndex: '1',
+  backgroundColor: '#2a9d8f',
+  display: open ? 'flex' : 'none',
+  fontSize: '20px',
+});

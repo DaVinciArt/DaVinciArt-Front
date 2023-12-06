@@ -14,6 +14,9 @@ const theme = createTheme({
     primary: {
       main: '#b5838d',
     },
+    secondary: {
+      main: '#5D2A42',
+    }
   },
   typography: {
     fontFamily: 'Mulish',

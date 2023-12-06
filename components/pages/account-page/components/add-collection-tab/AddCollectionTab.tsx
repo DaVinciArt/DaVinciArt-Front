@@ -4,18 +4,16 @@ import {Box, Typography} from "@mui/material";
 import * as styles from './AddCollectionTab.styles'
 import stylesCSS from './AddCollectionTab.module.scss'
 import PictureDropzone from "../../../../common/ui/picture-dropzone/PictureDropzone";
-import {FC, SetStateAction, useState} from "react";
+import {FC, useState} from "react";
 import CustomInput from "../../../../common/ui/custom-input/CustomInput";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
-import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
-import {NewPainting} from "../../../../../types/NewPainting";
+import {ButtonColor} from "../../../../common/ui/custom-button/types";
 import {checkValidCollection} from "./utils/checkValidCollection";
 import {createCollection} from "../../../../../lib/api/api";
-import bin from '../../../../../public/icons/bin.png'
-import Image from "next/image";
 import {useRouter} from "next/navigation";
 import AddPaintingBlock from "./components/add-painting-block/AddPaintingBlock";
 import PaintingCard from "../../../../common/ui/painting-card/PaintingCard";
+import { Painting } from "../../../../../types/Painting";
 
 interface AddCollectionTabProps {
   userID: number
@@ -30,17 +28,13 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
     price: '',
     tags: '',
   })
-  const [collectionPaintings, setCollectionPaintings] = useState<NewPainting[]>([])
+  const [collectionPaintings, setCollectionPaintings] = useState<Painting[]>([])
   const [pageErrors, setPageErrors] = useState([])
   const [isCollectionCreated, setIsCollectionCreated] = useState<boolean>(false)
 
   const handleChangePreview = () => {
     setPreviewFile(null);
     setPreviewURL('');
-  }
-
-  const handleDelete = (id: number) => {
-    setCollectionPaintings(collectionPaintings.filter((picture) => picture.id !== id))
   }
 
   const clearForm = () => {
@@ -63,7 +57,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       if (response.status === 200) {
         clearForm()
         setIsCollectionCreated(true)
-        setTimeout(() => setIsCollectionCreated(false), 100)
+        setTimeout(() => setIsCollectionCreated(false), 5000)
       }
 
     } else {
@@ -77,7 +71,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
       <Box sx={styles.collectionParameters}>
         {previewURL ?
           <Box sx={styles.previewBlock}>
-            <img src={previewURL} alt={'collection preview'} className={stylesCSS['collectionPreview']}/>
+            <img src={previewURL} alt={'collections preview'} className={stylesCSS['collectionPreview']}/>
             <CustomButton
               text='Change'
               sx={{width: '100%', mt: '10px'}}
@@ -119,7 +113,7 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
             value={collectionParams.tags}
           />
           <Box>
-            <CustomButton type='submit' text={"Create collection"} sx={{width: '100%'}}/>
+            <CustomButton type='submit' text={"Create collections"} sx={{width: '100%'}}/>
             {pageErrors.length > 0 && pageErrors.map((error, index) => (
               <Typography key={index} sx={{color: 'red'}}> {error}</Typography>
             ))}
@@ -144,6 +138,9 @@ const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
           </Box>
         ))}
       </Box>
+      <Typography sx={styles.popupMessage(isCollectionCreated)}>
+        Collection created successfully
+      </Typography>
     </Box>
   );
 }

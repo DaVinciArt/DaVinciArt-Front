@@ -39,10 +39,7 @@ const GetMoneyTab: FC<GetMoneyTabProps> = ({userID}) => {
 
     if (file) {
       setIsPatronSatisfied(true);
-      const updatedTokenData = editUser({
-        username: user.username,
-        balance: user.balance + 200,
-      })
+      const updatedTokenData = editUser(user.id, { balance: user.balance + 200 })
       updatedTokenData.then(updatedToken => {
         update(updatedToken)
       })

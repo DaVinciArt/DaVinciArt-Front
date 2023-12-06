@@ -1,12 +1,12 @@
 import {NewCollection} from "../../../../../../types/NewCollection";
-import {NewPainting} from "../../../../../../types/NewPainting";
+import { Painting } from "../../../../../../types/Painting";
 import {labelValidator, priceValidator, tagsValidator} from "../../../../../common/ui/custom-input/utils/inputValidators";
 
 
 export const checkValidCollection = (
   collection: NewCollection,
   collectionPreview: Blob,
-  paintings: NewPainting[]
+  paintings: Painting[]
 ) => {
   let isValid = true;
   let errors = []

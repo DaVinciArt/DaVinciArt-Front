@@ -8,13 +8,8 @@ export type Collection = {
   upload_date: string,
   preview_image_url: string,
   tags: string[],
-  status: CollectionStatus,
+  on_sale: boolean,
   price: number,
   Paintings?: Painting[]
 };
-
-export enum CollectionStatus  {
-  FOR_SALE = 'For sale',
-  PRIVATE= 'On fold',
-}
 

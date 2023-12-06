@@ -23,7 +23,7 @@ const CollectionCard: FC<CollectionCardProps> = ({collection}) => {
       <Typography sx={sxStyles.otherProps}>Creation date: {collection.upload_date}</Typography>
       <Typography sx={sxStyles.otherProps}>Price: {collection.price}</Typography>
       <Box sx={sxStyles.controlsContainer}>
-        <Link href={`/collection/${collection.id}`} style={{width: '100%'}}>
+        <Link href={`/user/${collection.author_id}/collection/${collection.id}`} style={{width: '100%'}}>
           <CustomButton text={'View'} sx={{width: '100%'}}/>
         </Link>
       </Box>

@@ -7,10 +7,11 @@ import {ButtonColor, ButtonVariant} from "../../../../../../common/ui/custom-but
 import PictureDropzone from "../../../../../../common/ui/picture-dropzone/PictureDropzone";
 import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
 import {NewPainting} from "../../../../../../../types/NewPainting";
+import { Painting } from '../../../../../../../types/Painting';
 
 interface AddPaintingBlockProps {
-  collectionPaintings: NewPainting[],
-  setCollectionPaintings: Dispatch<SetStateAction<NewPainting[]>>,
+  collectionPaintings: Painting[],
+  setCollectionPaintings: Dispatch<SetStateAction<Painting[]>>,
   isCollectionCreated: boolean,
 }
 
@@ -34,10 +35,10 @@ const AddPaintingBlock: FC<AddPaintingBlockProps> =
 
   const handleAdd = () => {
     setCollectionPaintings([...collectionPaintings, {
+      id: Date.now(),
       name: paintingLabel,
-      image: paintingFile,
-      link: paintingURL,
-      id: Date.now()
+      image_file: paintingFile,
+      image_url: paintingURL,
     }])
     clearBlock()
   }

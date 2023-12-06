@@ -2,9 +2,9 @@ import {NewUser} from "../../types/NewUser";
 import {LoginData} from "../../types/LoginData";
 import StorageUtil from "../utils/StorageUtil";
 import {NewCollection} from "../../types/NewCollection";
-import {NewPainting} from "../../types/NewPainting";
 import {Collection} from "../../types/Collection";
 import axios from "axios";
+import { Painting } from "../../types/Painting";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -41,7 +41,7 @@ export const createCollection = async (
   userId: number,
   collection: NewCollection,
   collectionPreview: Blob,
-  paintings: NewPainting[]
+  paintings: Painting[]
 ) => {
   const formData = new FormData();
   const now = new Date()
@@ -58,8 +58,8 @@ export const createCollection = async (
   paintings.forEach((painting, index) => {
     formData.append(`paintings[${index}][name]`, painting.name);
     formData.append(`paintings[${index}][image]`,
-      painting.image,
-      `paintings[${index}][name]` + Date.now() + '.' + painting.image.type.split('/')[1]);
+      painting.image_file,
+      `paintings[${index}][name]` + Date.now() + '.' + painting.image_file.type.split('/')[1]);
   });
 
   try {
@@ -75,20 +75,20 @@ export const createCollection = async (
 };
 
 export const getUserCollections = async (userId: number): Promise<Collection[]> => {
-    try {
-        const response = await axios.get(`http://localhost:3001/user/${userId}/collection/getAll`, {
-            headers: {
-                'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
-            }
-        });
-        return response.data
-    } catch (message) {
-        console.error(`An error occurred while receiving collections with authorId: ${userId}`, message);
-    }
+  try {
+    const response = await axios.get(`http://localhost:3001/user/${userId}/collection/getAll`, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response.data
+  } catch (message) {
+    console.error(`An error occurred while receiving collections with authorId: ${userId}`, message);
+  }
 };
 
 
-export const getCollection = async (collectionId: number,userId: number) => {
+export const getCollection = async (userId: number, collectionId: number) => {
   try {
     const response = await axios.get(`http://localhost:3001/user/${userId}/collection/${collectionId}/get`, {
       headers: {
@@ -101,9 +101,9 @@ export const getCollection = async (collectionId: number,userId: number) => {
   }
 };
 
-export const editUser = async (userData) => {
+export const editUser = async (userId: number ,userData: object) => {
   try {
-    const response = await axios.put(`http://localhost:3001/user/update`, userData,{
+    const response = await axios.put(`http://localhost:3001/user/${userId}/update`, userData,{
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
@@ -124,5 +124,35 @@ export const deleteUser = async (userId: number) => {
     console.log(response.status)
   } catch (message) {
     console.error(`An error occurred while deleting user with id: ${userId}`, message)
+  }
+};
+
+export const getTopFive = async (): Promise<Collection[]> => {
+  try {
+    const response = await axios.get(`http://localhost:3001/collection/getTopFive`);
+    return response.data
+  } catch (message) {
+    console.error(`An error occurred while receiving the most popular collections`, message);
+  }
+};
+
+export const editCollection = async (
+  collection: Collection,
+  collectionData: {price: string, tags: string},
+  status: boolean
+): Promise<Collection> => {
+  try {
+    const response = await axios.put(`http://localhost:3001/user/${collection.author_id}/collection/${collection.id}/edit`, {
+      price: collectionData.price,
+      tags: collectionData.tags,
+      on_sale: status,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response.data
+  } catch (message) {
+    console.error(`An error occurred while receiving the most popular collections`, message);
   }
 };

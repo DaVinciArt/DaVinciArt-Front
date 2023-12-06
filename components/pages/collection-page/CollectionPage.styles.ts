@@ -17,7 +17,7 @@ export const textBlock: SxProps<Theme> = {
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
-  gap: '15px',
+  gap: '10px',
 }
 
 export const collectionHeader: SxProps<Theme> = {
@@ -45,11 +45,22 @@ export const otherText: SxProps<Theme> = {
   color: '#6e6e6e',
   opacity: 0.85,
   border: '1px solid #b5838d',
-  borderRadius: '7px',
-  padding: '6px 20px',
+  borderRadius: '10px',
+  padding: '12px 20px',
   display: 'flex',
   alignItems: 'center',
-  width: '100%'
+  width: '100%',
+  mb: '8px'
+}
+
+export const statusToggle: SxProps<Theme> = {
+  width: '100%',
+  mb: '16px'
+}
+
+export const statusToggleButton: SxProps<Theme> = {
+  width: '50%',
+  padding: '6px 11px'
 }
 
 export const divider: SxProps<Theme> = {

@@ -12,8 +12,24 @@ import ArtistCard from './components/artist-card/ArtistCard';
 import hands from '../../../public/images/hands.jpeg';
 import trees from '../../../public/images/olive-trees.jpeg';
 import queen from '../../../public/images/queen.jpeg';
+import {useEffect, useState} from "react";
+import {Collection} from "../../../types/Collection";
+import {getTopFive, getUserCollections} from "../../../lib/api/api";
 
 const MainPage = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [collections, setCollections] = useState<Collection[]>(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const result = await getTopFive()
+      setCollections(result);
+      setLoading(false)
+    };
+
+    fetchData();
+  }, []);
+
   let images: ColectionImage[] = [
     {
       url: hands,
@@ -36,7 +52,7 @@ const MainPage = () => {
     <Box sx={styles.mainPageStyles}>
       <AboutUsSection/>
       <Box sx={styles.carouselSection}>
-        <CustomCarousel images={images}/>
+        <CustomCarousel collections={collections}/>
         <CustomButton
           text={'To other collections'}
           variant={ButtonVariant.OUTLINED}
