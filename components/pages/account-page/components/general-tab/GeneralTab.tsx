@@ -40,7 +40,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
   }
 
   const handleDelete = () => {
-    deleteUser(user.username)
+    deleteUser(user.id)
     logout()
   }
 

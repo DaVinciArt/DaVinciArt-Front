@@ -12,7 +12,6 @@ import {getCollection} from "../../../lib/api/api";
 import pesPatron from "../../../public/icons/dog.png";
 import {ButtonVariant} from "../../common/ui/custom-button/types";
 import stylesCSS from "../account-page/components/add-collection-tab/AddCollectionTab.module.scss";
-import bin from "../../../public/icons/bin.png";
 
 interface CollectionPageProps {
   collectionId: number
@@ -21,17 +20,17 @@ interface CollectionPageProps {
 const CollectionPage: FC<CollectionPageProps> = ({collectionId}) => {
   const [collection, setCollection] = useState<Collection | null>(null)
   const [loading, setLoading] = useState<boolean>(false)
+  const {user} = useContext(UserContext);
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
-      const result = await getCollection(collectionId)
+      const result = await getCollection(collectionId, user?.id)
       setCollection(result);
       setLoading(false)
     };
 
     fetchData();
   }, []);
-  const {user} = useContext(UserContext);
   const author = user?.id === collection?.author_id;
 
   return (

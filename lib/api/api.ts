@@ -63,7 +63,7 @@ export const createCollection = async (
   });
 
   try {
-    const response = await axios.post(`http://localhost:3001/user/collection/${userId}/add`, formData, {
+    const response = await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
       headers: {
         'Content-Type': 'multipart/form-data',
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
@@ -76,7 +76,7 @@ export const createCollection = async (
 };
 
 export const getUserCollections = async (userId: number): Promise<Collection[]> => {
-  return axios.get('http://localhost:3001/user/collection/${userId}/getAll', {
+  return axios.get(`http://localhost:3001/user/${userId}/collection/getAll`, {
     headers: {
       'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
     }
@@ -88,9 +88,9 @@ export const getUserCollections = async (userId: number): Promise<Collection[]> 
   });
 };
 
-export const getCollection = async (collectionId: number) => {
+export const getCollection = async (collectionId: number,userId: number) => {
   try {
-    const response = await axios.get(`http://localhost:3001/user/collection/${collectionId}/get`, {
+    const response = await axios.get(`http://localhost:3001/user/${userId}/collection/${collectionId}/get`, {
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
@@ -103,7 +103,7 @@ export const getCollection = async (collectionId: number) => {
 
 export const editUser = async (userData) => {
   try {
-    const response = await axios.post(`http://localhost:3001/user/update`, userData,{
+    const response = await axios.put(`http://localhost:3001/user/update`, userData,{
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
@@ -114,15 +114,15 @@ export const editUser = async (userData) => {
   }
 };
 
-export const deleteUser = async (username: string) => {
+export const deleteUser = async (userId: number) => {
   try {
-    const response = await axios.post(`http://localhost:3001/user/delete`, { username: username },{
+    const response = await axios.delete(`http://localhost:3001/user/${userId}/delete`, {
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
     });
     console.log(response.status)
   } catch (message) {
-    console.error(`An error occurred while deleting user with username: ${username}`, message)
+    console.error(`An error occurred while deleting user with id: ${userId}`, message)
   }
 };
