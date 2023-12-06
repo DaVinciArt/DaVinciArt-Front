@@ -66,6 +66,7 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
      if (errors.length === 0) {
        const newCollection = await editCollection(collection, collectionData, status)
        newCollection && setCollection(newCollection);
+
      } else {
        setPageErrors(errors)
        console.log(pageErrors)

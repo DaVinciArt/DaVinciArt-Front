@@ -151,7 +151,7 @@ export const editCollection = async (
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
     });
-    return response.data
+    return response.data.collection
   } catch (message) {
     console.error(`An error occurred while receiving the most popular collections`, message);
   }
