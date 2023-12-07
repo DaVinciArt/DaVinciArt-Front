@@ -21,7 +21,7 @@ export const textBlock: SxProps<Theme> = {
   gap: '10px',
   width: {
     xs: '70%',
-    md: '350px'
+    md: '300px'
   },
 }
 
