@@ -7,12 +7,16 @@ import Footer from "../components/common/layout/footer/Footer";
 
 import './globals.css';
 import {Box, createTheme, ThemeProvider} from "@mui/material";
+import { UserProvider } from "../lib/hooks/use-authentication/useAuthentication";
 
 const theme = createTheme({
   palette: {
     primary: {
       main: '#b5838d',
     },
+    secondary: {
+      main: '#5D2A42',
+    }
   },
   typography: {
     fontFamily: 'Mulish',
@@ -35,9 +39,11 @@ const RootLayout =({
       </head>
       <body>
         <ThemeProvider theme={theme}>
-          <Header/>
-          <Box sx={{minHeight: '90vh'}}>{children}</Box>
-          <Footer/>
+          <UserProvider>
+            <Header/>
+            <Box sx={{minHeight: '90vh'}}>{children}</Box>
+            <Footer/>
+          </UserProvider>
         </ThemeProvider>
       </body>
     </html>

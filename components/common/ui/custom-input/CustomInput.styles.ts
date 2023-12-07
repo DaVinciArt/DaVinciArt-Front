@@ -14,7 +14,7 @@ export const input: SxProps<Theme> = {
   transition: 'all 0.15s ease-in-out',
   input: {
     '&:-webkit-autofill': {
-      '-webkit-box-shadow': '0 0 0 30px white inset',
+      'WebkitBoxShadow': '0 0 0 30px white inset',
     },
   },
 };

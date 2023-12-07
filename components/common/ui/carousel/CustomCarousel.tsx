@@ -1,6 +1,5 @@
 "use client"
 
-import {ColectionImage} from '../../../../types/ColectionImage';
 import React, {FC} from "react";
 import {Box, Typography} from "@mui/material";
 import Carousel from "nuka-carousel";
@@ -13,12 +12,14 @@ import {
   renderCenterLeftControl,
   renderCenterRightControl
 } from './components/controls/controls';
+import {Collection} from "../../../../types/Collection";
+import Link from "next/link";
 
 interface CarouselProps {
-  images: ColectionImage[],
+  collections: Collection[],
 }
 
-const CustomCarousel: FC<CarouselProps> = ({ images })=> {
+const CustomCarousel: FC<CarouselProps> = ({ collections })=> {
 
   return (
     <Carousel
@@ -31,12 +32,14 @@ const CustomCarousel: FC<CarouselProps> = ({ images })=> {
       renderBottomCenterControls={renderBottomCenterControl}
       renderCenterRightControls={renderCenterRightControl}
     >
-      {images && images.map((image, index) => (
-        <Box key={index} sx={sxStyles.collectionContainer}>
-          <Image src={image.url} alt={image.label} className={styles['image']}/>
-          <Typography sx={sxStyles.collectionHeading}>Collection "{image.label}"</Typography>
-          <Typography sx={sxStyles.collectionAuthor}>Author: {image.author}</Typography>
-        </Box>
+      {collections && collections.map((collection, index) => (
+        <Link key={index} href={`/user/${collection.author_id}/collection/${collection.id}`}>
+          <Box sx={sxStyles.collectionContainer}>
+            <img src={collection.preview_image_url} alt={collection.name} className={styles['image']}/>
+            <Typography sx={sxStyles.collectionHeading}>Collection "{collection.name}"</Typography>
+            <Typography sx={sxStyles.collectionAuthor}>Author: {collection.author_name}</Typography>
+          </Box>
+        </Link>
       ))}
     </Carousel>
   );

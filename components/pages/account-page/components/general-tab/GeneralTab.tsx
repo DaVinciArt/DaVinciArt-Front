@@ -1,58 +1,44 @@
 'use client';
 
 import {Avatar, Box, Typography} from "@mui/material";
-import Image from "next/image";
-import pesPatron from '../../../../../public/icons/dog.png';
 
 import * as styles from './GeneralTab.styles'
-import hands from "../../../../../public/images/hands.jpeg";
-import {Collection, CollectionStatus} from "../../../../../types/Collection";
+import {Collection} from "../../../../../types/Collection";
 import CollectionCard from "../../../../common/ui/collection-card/CollectionCard";
 import {stringAvatar} from "./utils/createNamedAvatar";
 import CustomButton from "../../../../common/ui/custom-button/CustomButton";
 import {ButtonColor, ButtonVariant} from "../../../../common/ui/custom-button/types";
-import StorageUtil from "../../../../../lib/utils/StorageUtil";
-import {useRouter} from "next/navigation";
 import {User} from "../../../../../types/User";
-import {FC} from "react";
+import {FC, useContext, useEffect, useState} from "react";
+import {UserContext} from "../../../../../lib/hooks/use-authentication/useAuthentication";
+import {deleteUser, getUserCollections} from "../../../../../lib/api/api";
 
 interface GeneralTabProps {
   user: User
 }
 
 const GeneralTab: FC<GeneralTabProps> = ({user}) => {
-  const router = useRouter();
+  const { logout } = useContext(UserContext);
+  const [loading, setLoading] = useState<boolean>(false)
+  const [collections, setCollections] = useState<Collection[]>(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const result = await getUserCollections(user.id)
+      setCollections(result);
+      setLoading(false)
+    };
 
-  let collections: Collection[] = [
-    {
-      label: 'Hands',
-      authorID: 0,
-      previewImage: hands,
-      creationDate: 0,
-      price: 1,
-      status: CollectionStatus.FOR_SALE
-    },
-    {
-      label: 'Hands',
-      authorID: 0,
-      previewImage: hands,
-      creationDate: 0,
-      price: 1,
-      status: CollectionStatus.FOR_SALE
-    },
-    {
-      label: 'Hands',
-      authorID: 0,
-      previewImage: hands,
-      creationDate: 0,
-      price: 1,
-      status: CollectionStatus.FOR_SALE
-    },
-  ]
+    fetchData();
+  }, []);
 
   const handleClick = () => {
-    StorageUtil.removeAccessToken();
-    router.push('/login')
+    logout()
+  }
+
+  const handleDelete = () => {
+    deleteUser(user.id)
+    logout()
   }
 
   return (
@@ -60,33 +46,44 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
     (
       <Box>
         <Box sx={styles.userInformationContainer}>
-          <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} sx={styles.avatar}/>
+          {user.avatar ?
+            <Avatar src={user.avatar} sx={styles.avatar}/>
+            :
+            <Avatar {...stringAvatar(user.first_name + ' ' + user.last_name)} sx={styles.avatar}/>
+          }
           <Box sx={styles.textInformation}>
             <Typography sx={styles.username}>{user.username}</Typography>
             <Box sx={styles.textBox}>
               <Typography sx={styles.other}>{user.first_name + ' ' + user.last_name}</Typography>
               <Typography sx={styles.other}>
-                <Image src={pesPatron} alt={'patron icon'} style={{width: '20px', height: 'auto', marginRight: '7px'}}/>
-                {user.balance} PatronCoins
+                {user.balance}   PatronCoins
               </Typography>
               <Typography sx={styles.other}>{user.email}</Typography>
-              <CustomButton
-                sx={styles.logOutButton}
-                text={'Log out'}
-                variant={ButtonVariant.CONTAINED}
-                color={ButtonColor.INPUT}
-                onClick={handleClick}
-              />
+              <Box sx={styles.userControls}>
+                <CustomButton
+                  sx={styles.controlButton}
+                  text={'Log out'}
+                  variant={ButtonVariant.CONTAINED}
+                  color={ButtonColor.INPUT}
+                  onClick={handleClick}
+                />
+                <CustomButton
+                  sx={styles.controlButton}
+                  text={'Delete'}
+                  variant={ButtonVariant.CONTAINED}
+                  onClick={handleDelete}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
         <Box>
-          <Typography sx={styles.collectionsHeader}>Yor collections</Typography>
+          <Typography sx={styles.collectionsHeader}>Your collections</Typography>
           <Box sx={styles.collectionsContainer}>
-            {collections ?
+            {collections?.length ?
               (
                 collections.map((collection, index) => (
-                  <CollectionCard key={index} collection={collection}/>
+                  <CollectionCard key={index} collection={collection} myCollection={true}/>
                 ))
               )
               :

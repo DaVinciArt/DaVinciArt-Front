@@ -6,6 +6,7 @@ class StorageUtil {
       return;
     }
 
+
     localStorage.setItem(STORAGE_KEYS.ACCESS_TOKEN, accessToken);
   }
   getAccessToken() {
@@ -23,6 +24,15 @@ class StorageUtil {
     }
 
     localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
+  }
+
+  updateAccessToken(accessToken: string) {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    this.removeAccessToken()
+    this.setAccessToken(accessToken)
   }
 }
 

@@ -1,0 +1,40 @@
+.collectionPreview {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 400px;
+  width: 400px;
+}
+
+@media screen and (max-width: 900px){
+  .form {
+    width: 100%;
+    max-width: 600px;
+  }
+}
+
+.newPicture {
+  width: 100%;
+  height: auto;
+  border-radius: 15px;
+}
+
+.addedPicture {
+  width: auto;
+  height: 200px;
+}
+
+.deleteIcon {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  width: 25px;
+  height: auto;
+  cursor: pointer;
+}

@@ -1,5 +1,6 @@
 export enum AccountPageTab {
   GENERAL = 'GENERAL',
   ADD_COLLECTION = 'ADD_COLLECTION',
+  REVIEWS = 'REVIEWS',
   GET_MONEY = 'GET_MONEY'
 }

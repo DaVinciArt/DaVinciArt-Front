@@ -32,3 +32,38 @@ export const controlsButton: SxProps<Theme> = {
   border: 'none',
   width: '120px',
 };
+
+export const userControls = {
+  display: 'flex',
+  flexDirection: 'column',
+  padding: '20px',
+  gap: '5px'
+}
+
+export const userCardMobile = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  gap: '20px',
+  mb: '15px'
+}
+
+export const cardUsername: SxProps<Theme> = {
+  textAlign: 'right',
+  fontSize: '20px',
+  borderBottom: '1px solid #b5838d',
+  pb: '2px',
+};
+
+export const cardBalance: SxProps<Theme> = {
+  mt: '2px',
+  color: '#6e6e6e',
+  display: 'flex',
+  alignItems: 'center',
+};
+
+export const avatar: SxProps<Theme> = {
+  width: '70px',
+  height: '70px',
+  borderRadius: '50%',
+};

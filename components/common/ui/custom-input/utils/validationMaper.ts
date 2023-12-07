@@ -1,4 +1,12 @@
-import {emailValidator, namesValidator, passwordValidator, usernameValidator} from "./inputValidators";
+import {
+  emailValidator,
+  labelValidator,
+  namesValidator,
+  passwordValidator,
+  priceValidator, reviewValidator,
+  tagsValidator,
+  usernameValidator
+} from "./inputValidators";
 
 interface ValidatorMap {
   [key: string]: (value: string) => string[];
@@ -10,4 +18,9 @@ export const validationMaper: ValidatorMap = {
   LAST_NAME: namesValidator,
   EMAIL: emailValidator,
   PASSWORD: passwordValidator,
+  NAME: labelValidator,
+  PRICE: priceValidator,
+  TAGS: tagsValidator,
+  PAINTING_LABEL: labelValidator,
+  REVIEW: reviewValidator,
 }

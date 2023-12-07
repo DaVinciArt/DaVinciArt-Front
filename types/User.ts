@@ -3,10 +3,8 @@ export type User = {
   username: string,
   first_name: string,
   last_name: string,
-  avatar: Blob,
+  avatar: string,
   email: string,
   password: string,
   balance: number,
-  createAt: string,
-  updateAt: string,
 }

@@ -7,7 +7,7 @@ export const fileInputContainer: SxProps<Theme> = {
     sm: '180px',
   },
   margin: '0 auto',
-  padding: '15px',
+  padding: '10px',
   border: '2px dashed #b5838d',
   borderRadius: '15px',
   display: 'flex',

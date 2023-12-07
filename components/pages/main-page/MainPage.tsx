@@ -12,26 +12,39 @@ import ArtistCard from './components/artist-card/ArtistCard';
 import hands from '../../../public/images/hands.jpeg';
 import trees from '../../../public/images/olive-trees.jpeg';
 import queen from '../../../public/images/queen.jpeg';
+import {useEffect, useState} from "react";
+import {Collection} from "../../../types/Collection";
+import {getTopFive, getUserCollections} from "../../../lib/api/api";
 import Link from "next/link";
-import StorageUtil from "../../../lib/utils/StorageUtil";
-import {decodeToken} from "../../../lib/utils/decodeToken";
-import {User} from "../../../types/User";
 
 const MainPage = () => {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [collections, setCollections] = useState<Collection[]>(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      setLoading(true);
+      const result = await getTopFive()
+      setCollections(result);
+      setLoading(false)
+    };
+
+    fetchData();
+  }, []);
+
   let images: ColectionImage[] = [
     {
       url: hands,
-      label: 'Hands',
+      name: 'Hands',
       author: 'Michael Jordan',
     },
     {
       url: trees,
-      label: 'Trees',
+      name: 'Trees',
       author: 'Stephen Curry',
     },
     {
       url: queen,
-      label: 'Second',
+      name: 'Second',
       author: 'Arsen Martynenko',
     },
   ]
@@ -40,14 +53,15 @@ const MainPage = () => {
     <Box sx={styles.mainPageStyles}>
       <AboutUsSection/>
       <Box sx={styles.carouselSection}>
-        <CustomCarousel images={images}/>
-        <CustomButton
-          text={'To other collections'}
-          variant={ButtonVariant.OUTLINED}
-          color={ButtonColor.LINK}
-          href={'/'}
-          sx={styles.contactsButton}
-        />
+        <CustomCarousel collections={collections}/>
+        <Link href={"/collections"} style={{width: '100%'}}>
+          <CustomButton
+            text={'To other collections'}
+            variant={ButtonVariant.OUTLINED}
+            color={ButtonColor.LINK}
+            sx={styles.contactsButton}
+          />
+        </Link>
       </Box>
       <Box sx={styles.artistsSection}>
         <Typography sx={styles.artistsSectionHeader}>Become better than them!</Typography>
@@ -85,7 +99,6 @@ const MainPage = () => {
               'Spider of the Evening (c. 1940)',
             ]}
           />
-
         </Box>
       </Box>
     </Box>
