@@ -1,0 +1,36 @@
+.collectionPreview {
+  width: auto;
+  height: 320px;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 900px){
+  .collectionPreview {
+    width: 90%;
+    height: auto;
+    max-width: 600px;
+  }
+}
+
+.modalPainting {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 1200px;
+  height: auto;
+  border-radius: 10px;
+
+  &:focus {
+    outline: none
+  }
+}
+
+.authorLink {
+  margin-left: 8px;
+  transition: all 0.1s ease-in-out;
+  &:hover {
+    color: #5D2A42;
+    font-weight: 500;
+  }
+}
