@@ -1,4 +1,5 @@
 import AccountPage from "../../../components/pages/account-page/AccountPage";
+import AuthorPage from "../../../components/pages/author-page/AuthorPage";
 
 interface UserParams {
   params: {
@@ -8,7 +9,7 @@ interface UserParams {
 
 const User = ({params: {userId}}: UserParams) => {
   return (
-    <AccountPage userId={userId}/>
+    <AuthorPage authorId={userId}/>
   );
 }
 

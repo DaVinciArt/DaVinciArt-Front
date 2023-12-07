@@ -25,6 +25,7 @@ interface CustomInputProps {
   endAdornment?: React.ReactNode;
   object?: any;
   setObject?: Dispatch<SetStateAction<any>>;
+  multiline?: boolean
 }
 
 const CustomInput: FC<CustomInputProps> = ({
@@ -38,6 +39,7 @@ const CustomInput: FC<CustomInputProps> = ({
   endAdornment,
   object,
   setObject,
+  multiline = false,
   ...rest
 }) => {
   const [errors, setErrors] = useState<string[]>([]);
@@ -67,6 +69,7 @@ const CustomInput: FC<CustomInputProps> = ({
         onChange={handleChange}
         endAdornment={endAdornment}
         disabled={disabled}
+        multiline={multiline}
         {...rest}
       />
       {(errors.length > 0) &&

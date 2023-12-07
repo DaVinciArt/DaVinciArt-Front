@@ -15,6 +15,7 @@ import queen from '../../../public/images/queen.jpeg';
 import {useEffect, useState} from "react";
 import {Collection} from "../../../types/Collection";
 import {getTopFive, getUserCollections} from "../../../lib/api/api";
+import Link from "next/link";
 
 const MainPage = () => {
   const [loading, setLoading] = useState<boolean>(false)
@@ -53,13 +54,14 @@ const MainPage = () => {
       <AboutUsSection/>
       <Box sx={styles.carouselSection}>
         <CustomCarousel collections={collections}/>
-        <CustomButton
-          text={'To other collections'}
-          variant={ButtonVariant.OUTLINED}
-          color={ButtonColor.LINK}
-          href={'/'}
-          sx={styles.contactsButton}
-        />
+        <Link href={"/collections"} style={{width: '100%'}}>
+          <CustomButton
+            text={'To other collections'}
+            variant={ButtonVariant.OUTLINED}
+            color={ButtonColor.LINK}
+            sx={styles.contactsButton}
+          />
+        </Link>
       </Box>
       <Box sx={styles.artistsSection}>
         <Typography sx={styles.artistsSectionHeader}>Become better than them!</Typography>

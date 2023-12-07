@@ -154,15 +154,24 @@ export const editCollection = async (
     });
     return response.data.collection
   } catch (message) {
-    console.error(`An error occurred while receiving the most popular collections`, message);
+    console.error(`An error occurred while editing collection with id: ${collection.id}`, message);
   }
 };
 
 export const getAuthor = async (userId: number): Promise<User> => {
   try {
-    const response = await axios.get(`http://localhost:3001/collection/getTopFive`);
+    const response = await axios.get(`http://localhost:3001/user/${userId}`);
     return response.data
   } catch (message) {
-    console.error(`An error occurred while receiving the most popular collections`, message);
+    console.error(`An error occurred while receiving author with id: ${userId}`, message);
+  }
+};
+
+export const getAllCollections = async (page: number, limit: number): Promise<Collection[]> => {
+  try {
+    const response = await axios.get(`http://localhost:3001/collection/getPopular?page=${page}&limit=${limit}`);
+    return response.data.collections
+  } catch (message) {
+    console.error(`An error occurred while receiving all collections`, message);
   }
 };

@@ -115,3 +115,9 @@ export const tagsValidator = (text: string) => {
 
   return errorMessages;
 };
+
+export const reviewValidator = (text: string) => {
+  const errorMessages: string[] = [];
+
+  return errorMessages;
+};

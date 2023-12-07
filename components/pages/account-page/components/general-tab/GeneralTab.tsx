@@ -41,37 +41,6 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
     logout()
   }
 
-  const reviews = [
-    {
-      author_username: 'Dick1',
-      receiver_id: 0,
-      creation_date: 'now',
-      review_body: 'It is a long established fact that a reader will be distracted by the readable content of a page' +
-        ' when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' +
-        ' of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many' +
-        'desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search' +
-        ' for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over' +
-        ' the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-    },
-    {
-      author_username: 'Dick2',
-      receiver_id: 0,
-      creation_date: 'now',
-      review_body: 'It is a long established fact that a reader will be distracted by the readable content of a page' +
-        ' when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' +
-        ' of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many' +
-        'desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search' +
-        ' for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over' +
-        ' the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
-    },
-    {
-      author_username: 'Dick3',
-      receiver_id: 0,
-      creation_date: 'now',
-      review_body: 'DicknCock',
-    },
-  ]
-
   return (
     user &&
     (
@@ -86,25 +55,25 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
             <Typography sx={styles.username}>{user.username}</Typography>
             <Box sx={styles.textBox}>
               <Typography sx={styles.other}>{user.first_name + ' ' + user.last_name}</Typography>
-              {/*<Typography sx={styles.other}>*/}
-              {/*  {user.balance}   PatronCoins*/}
-              {/*</Typography>*/}
-              {/*<Typography sx={styles.other}>{user.email}</Typography>*/}
-              {/*<Box sx={styles.userControls}>*/}
-              {/*  <CustomButton*/}
-              {/*    sx={styles.controlButton}*/}
-              {/*    text={'Log out'}*/}
-              {/*    variant={ButtonVariant.CONTAINED}*/}
-              {/*    color={ButtonColor.INPUT}*/}
-              {/*    onClick={handleClick}*/}
-              {/*  />*/}
-              {/*  <CustomButton*/}
-              {/*    sx={styles.controlButton}*/}
-              {/*    text={'Delete'}*/}
-              {/*    variant={ButtonVariant.CONTAINED}*/}
-              {/*    onClick={handleDelete}*/}
-              {/*  />*/}
-              {/*</Box>*/}
+              <Typography sx={styles.other}>
+                {user.balance}   PatronCoins
+              </Typography>
+              <Typography sx={styles.other}>{user.email}</Typography>
+              <Box sx={styles.userControls}>
+                <CustomButton
+                  sx={styles.controlButton}
+                  text={'Log out'}
+                  variant={ButtonVariant.CONTAINED}
+                  color={ButtonColor.INPUT}
+                  onClick={handleClick}
+                />
+                <CustomButton
+                  sx={styles.controlButton}
+                  text={'Delete'}
+                  variant={ButtonVariant.CONTAINED}
+                  onClick={handleDelete}
+                />
+              </Box>
             </Box>
           </Box>
         </Box>
@@ -114,7 +83,7 @@ const GeneralTab: FC<GeneralTabProps> = ({user}) => {
             {collections?.length ?
               (
                 collections.map((collection, index) => (
-                  <CollectionCard key={index} collection={collection}/>
+                  <CollectionCard key={index} collection={collection} myCollection={true}/>
                 ))
               )
               :

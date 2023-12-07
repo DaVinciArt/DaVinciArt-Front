@@ -10,6 +10,7 @@ export type Collection = {
   tags: string[],
   on_sale: boolean,
   price: number,
+  views: number,
   Paintings?: Painting[]
 };
 

@@ -15,7 +15,6 @@ interface ButtonProps {
 	sx?: SxProps<Theme>;
 	disabled?: boolean;
 	onClick?: MouseEventHandler<HTMLButtonElement>;
-	href?: string;
 	type?: 'button' | 'reset' | 'submit';
 }
 

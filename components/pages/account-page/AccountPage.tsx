@@ -13,13 +13,8 @@ import GetMoneyTab from "./components/get-money-tab/GetMoneyTab";
 import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
 import ReviewsTab from "./components/reviews-tab/ReviewsTab";
 import {useRouter, useSearchParams} from "next/navigation";
-import {getAuthor, getCollection} from "../../../lib/api/api";
 
-interface AccountPageProps {
-  userId?: number,
-}
-
-const AccountPage: FC<AccountPageProps> = ({userId}) => {
+const AccountPage = () => {
   const [index, setIndex] = useState<AccountPageTab>(AccountPageTab.GENERAL);
   const { user } = useContext(UserContext)
   const router = useRouter()
@@ -90,15 +85,13 @@ const AccountPage: FC<AccountPageProps> = ({userId}) => {
           iconPosition={"start"}
           sx={{fontSize: '16px'}}
         />
-        {!userId &&
-          <Tab
-            label="Add collection"
-            value={AccountPageTab.ADD_COLLECTION}
-            icon={<PlusIcon width={20} />}
-            iconPosition={"start"}
-            sx={{fontSize: '16px'}}
-          />
-        }
+        <Tab
+          label="Add collection"
+          value={AccountPageTab.ADD_COLLECTION}
+          icon={<PlusIcon width={20} />}
+          iconPosition={"start"}
+          sx={{fontSize: '16px'}}
+        />
         <Tab
           label="Reviews"
           value={AccountPageTab.REVIEWS}
@@ -106,17 +99,15 @@ const AccountPage: FC<AccountPageProps> = ({userId}) => {
           iconPosition={"start"}
           sx={{fontSize: '16px'}}
         />
-        {!userId &&
-          <Tab
-            label="Get money"
-            value={AccountPageTab.GET_MONEY}
-            icon={<CurrencyDollarIcon width={20} />}
-            iconPosition={"start"}
-            sx={{fontSize: '16px'}}
-          />
-        }
+        <Tab
+          label="Get money"
+          value={AccountPageTab.GET_MONEY}
+          icon={<CurrencyDollarIcon width={20} />}
+          iconPosition={"start"}
+          sx={{fontSize: '16px'}}
+        />
       </Tabs>
-      {(user && !userId) &&
+      {user &&
         <Box sx={styles.tabPanelContainer}>
           <TabPanel value={AccountPageTab.GENERAL} currentValue={index}>
             <GeneralTab user={user}/>
@@ -129,17 +120,6 @@ const AccountPage: FC<AccountPageProps> = ({userId}) => {
           </TabPanel>
           <TabPanel value={AccountPageTab.GET_MONEY} currentValue={index}>
             <GetMoneyTab userID={user.id}/>
-          </TabPanel>
-        </Box>
-      }
-
-      {author &&
-        <Box sx={styles.tabPanelContainer}>
-          <TabPanel value={AccountPageTab.GENERAL} currentValue={index}>
-            <GeneralTab user={user}/>
-          </TabPanel>
-          <TabPanel value={AccountPageTab.REVIEWS} currentValue={index}>
-            <ReviewsTab reviews={reviews} userId={0}/>
           </TabPanel>
         </Box>
       }

@@ -1,15 +1,17 @@
-import {FC, SyntheticEvent, useEffect, useState} from "react";
+'use client'
+
+import {FC, SyntheticEvent, useContext, useEffect, useState} from "react";
 import {AccountPageTab} from "../account-page/types";
 import {useRouter, useSearchParams} from "next/navigation";
 import {getAuthor} from "../../../lib/api/api";
 import {Box, Tab, Tabs} from "@mui/material";
 import * as styles from "../account-page/AccountPage.styles";
-import {CurrencyDollarIcon, HomeIcon, PencilSquareIcon, PlusIcon} from "@heroicons/react/24/outline";
+import {HomeIcon, PencilSquareIcon} from "@heroicons/react/24/outline";
 import TabPanel from "../../common/ui/tab-panel/TabPanel";
-import GeneralTab from "../account-page/components/general-tab/GeneralTab";
-import AddCollectionTab from "../account-page/components/add-collection-tab/AddCollectionTab";
 import ReviewsTab from "../account-page/components/reviews-tab/ReviewsTab";
-import GetMoneyTab from "../account-page/components/get-money-tab/GetMoneyTab";
+import AuthorGeneralTab from "./components/author-general-tab/AuthorGeneralTab";
+import AuthorReviewsTab from "./components/author-reviews-page/AuthorReviewsTab";
+import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
 
 interface AuthorPageProps {
   authorId: number,
@@ -20,20 +22,64 @@ const AuthorPage: FC<AuthorPageProps> = ({authorId}) => {
   const [author, setAuthor] = useState(null);
   const router = useRouter();
   const query = useSearchParams();
+  const { user } = useContext(UserContext);
 
   useEffect(() => {
     const fetchData = async () => {
       const result = await getAuthor(authorId)
-      setAuthor(author)
+      setAuthor(result)
     };
 
     fetchData();
+
+    if (!query.has('tab')) {
+      router.push(`/user/${authorId}?tab=GENERAL`)
+    } else {
+      setIndex(query.get('tab') as AccountPageTab)
+    }
   }, []);
+
+  useEffect(() => {
+    if (query.has('tab')) {
+      setIndex(query.get('tab') as AccountPageTab)
+    }
+  }, [query])
 
   const handleChange = async (event: SyntheticEvent, value: AccountPageTab) => {
     setIndex(value);
-    router.push(`/account?tab=${value}`)
+    router.push(`/user/${authorId}?tab=${value}`)
   }
+
+  const reviews = [
+    {
+      author_username: 'Dick1',
+      receiver_id: 0,
+      creation_date: 'now',
+      review_body: 'It is a long established fact that a reader will be distracted by the readable content of a page' +
+        ' when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' +
+        ' of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many' +
+        'desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search' +
+        ' for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over' +
+        ' the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
+    },
+    {
+      author_username: 'Dick2',
+      receiver_id: 0,
+      creation_date: 'now',
+      review_body: 'It is a long established fact that a reader will be distracted by the readable content of a page' +
+        ' when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution' +
+        ' of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many' +
+        'desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search' +
+        ' for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over' +
+        ' the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
+    },
+    {
+      author_username: 'Dick3',
+      receiver_id: 0,
+      creation_date: 'now',
+      review_body: 'DicknCock',
+    },
+  ]
 
   return (
     <Box>
@@ -62,10 +108,10 @@ const AuthorPage: FC<AuthorPageProps> = ({authorId}) => {
       {author &&
         <Box sx={styles.tabPanelContainer}>
           <TabPanel value={AccountPageTab.GENERAL} currentValue={index}>
-            <GeneralTab user={author}/>
+            <AuthorGeneralTab author={author}/>
           </TabPanel>
           <TabPanel value={AccountPageTab.REVIEWS} currentValue={index}>
-            <ReviewsTab reviews={reviews} userId={0}/>
+            <AuthorReviewsTab reviews={[]} userId={user?.id}/>
           </TabPanel>
         </Box>
       }

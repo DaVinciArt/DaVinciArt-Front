@@ -2,7 +2,8 @@ import {SxProps, Theme} from "@mui/material";
 
 export const cardContainer: SxProps<Theme> = {
   display: 'flex',
-  width: '400px',
+  maxWidth: '400px',
+  width: '100%',
   flexDirection: 'column',
   alignItems: 'center',
   padding: '15px 20px ',
@@ -16,14 +17,35 @@ export const cardContainer: SxProps<Theme> = {
 
 export const label: SxProps<Theme> = {
   fontFamily: 'Cormorant Infant',
-  fontSize: '35px',
+  fontSize: {
+    xs: 'calc(1.325rem + 0.9vw)',
+    lg: '2rem',
+  },
   mt: '10px',
 }
 
 export const otherProps: SxProps<Theme> = {
-  fontSize: '20px',
+  fontSize: {
+    xs: 'calc(1.15rem + 0.2vw)',
+    lg: '1.3rem',
+  },
   fontWeight: 300,
   opacity: 0.6,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '10px',
+}
+
+export const viewsBlock: SxProps<Theme> = {
+  display: 'flex',
+  alignItems: 'center',
+}
+
+export const viewsIcon: SxProps<Theme> = {
+  width: '25px',
+  height: 'auto',
+  ml: '6px',
 }
 
 export const controlsContainer: SxProps<Theme> = {

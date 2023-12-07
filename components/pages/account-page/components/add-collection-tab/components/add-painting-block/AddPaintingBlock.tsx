@@ -6,7 +6,6 @@ import CustomButton from "../../../../../../common/ui/custom-button/CustomButton
 import {ButtonColor, ButtonVariant} from "../../../../../../common/ui/custom-button/types";
 import PictureDropzone from "../../../../../../common/ui/picture-dropzone/PictureDropzone";
 import {Dispatch, FC, SetStateAction, useEffect, useState} from "react";
-import {NewPainting} from "../../../../../../../types/NewPainting";
 import { Painting } from '../../../../../../../types/Painting';
 
 interface AddPaintingBlockProps {
