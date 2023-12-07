@@ -1,20 +1,59 @@
-import {Review} from "../../../../../types/Review";
-import {FC, SetStateAction, useContext, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import * as styles from "./AuthorReviewsTab.styles";
 import {Box, Typography} from "@mui/material";
-import ReviewCard from "../../../account-page/components/reviews-tab/components/ReviewCard";
-import {UserContext} from "../../../../../lib/hooks/use-authentication/useAuthentication";
+import ReviewCard from "../../../../common/ui/review-card/ReviewCard";
 import AddReviewForm from "./component/add-review-form/AddReviewForm";
+import {addReview, deleteReview, getAllReview} from "../../../../../lib/api/api";
+import {usePathname} from "next/navigation";
 
 interface AuthorReviewsTabProps {
-  reviews: Review[]
   userId: number
 }
 
-const AuthorReviewsTab: FC<AuthorReviewsTabProps> = ({reviews, userId}) => {
+const AuthorReviewsTab: FC<AuthorReviewsTabProps> = ({ userId}) => {
   const [newReview, setNewReview] = useState('');
-  const [isReviewAdded, setIsReviewAdded] = useState(false)
+  const [isReviewArrayChanged, setIsReviewArrayChanged] = useState(false);
+  const [showError, setShowError] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const receiverId = +usePathname().split('/')[2]
 
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAllReview(receiverId)
+      setReviews(result)
+    };
+
+    fetchData();
+  }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const result = await getAllReview(receiverId)
+      setReviews(result)
+    };
+
+    if (isReviewArrayChanged) {
+      fetchData();
+    }
+  }, [isReviewArrayChanged]);
+
+  const handleReviewSubmit = () => {
+    if (newReview !== '') {
+      addReview(receiverId, userId, newReview)
+      setNewReview('')
+      setIsReviewArrayChanged(true)
+      setTimeout(() => setIsReviewArrayChanged(false), 1000)
+    } else {
+      setShowError(true)
+      setTimeout(() => setShowError(false), 3000)
+    }
+  }
+
+  const handleDeleteReview = (reviewId: number) => {
+    deleteReview(reviewId)
+    setIsReviewArrayChanged(true)
+    setTimeout(() => setIsReviewArrayChanged(false), 1000)
+  }
 
   return (
     <Box sx={styles.reviewsConatiner}>
@@ -23,10 +62,11 @@ const AuthorReviewsTab: FC<AuthorReviewsTabProps> = ({reviews, userId}) => {
           <AddReviewForm
             review={newReview}
             setReview={setNewReview}
-            setIsReviewAdded={setIsReviewAdded}
+            handleAddReview={handleReviewSubmit}
+            showError={showError}
           />
-          {reviews.map((review, index) => (
-          <ReviewCard key={index} review={review} userId={userId}/>
+          {reviews && reviews.map((review, index) => (
+            <ReviewCard key={index} review={review} userId={userId} handleDelete={handleDeleteReview}/>
           ))}
         </Box>
         :
@@ -35,7 +75,8 @@ const AuthorReviewsTab: FC<AuthorReviewsTabProps> = ({reviews, userId}) => {
           <AddReviewForm
             review={newReview}
             setReview={setNewReview}
-            setIsReviewAdded={setIsReviewAdded}
+            handleAddReview={handleReviewSubmit}
+            showError={showError}
           />
         </Box>
       }

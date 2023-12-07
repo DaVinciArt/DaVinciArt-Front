@@ -5,10 +5,16 @@ export const formContainer: SxProps<Theme> = {
   margin: '0 auto',
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-end'
+  mb: '20px',
 }
 
-export const addButton: SxProps<Theme> = {
-  maxWidth: '150px',
-  width: '100%'
+export const sendButton: SxProps<Theme> = {
+  width: 'auto',
+  height: '25px',
+  color: '#b5838d'
+}
+
+export const errorText: SxProps<Theme> = {
+  fontSize: '14px',
+  color: 'red',
 }

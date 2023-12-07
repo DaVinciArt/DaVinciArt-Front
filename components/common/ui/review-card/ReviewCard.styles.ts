@@ -3,7 +3,8 @@ import {SxProps, Theme} from "@mui/material";
 export const card: SxProps<Theme> = {
   border: '1px solid #B5838D',
   borderRadius: '10px',
-  overflow: 'hidden'
+  overflow: 'hidden',
+  mb: '25px'
 }
 
 export const cardHeader: SxProps<Theme> = {
@@ -15,11 +16,18 @@ export const cardHeader: SxProps<Theme> = {
   padding: '8px 20px'
 }
 
+export const commentatorAvatar: SxProps<Theme> = {
+  width: '35px',
+  height: '35px',
+}
+
 export const authorUsername: SxProps<Theme> = {
-  fontWeight: 400
+  fontWeight: 300,
+  fontSize: '18px'
 }
 
 export const creationDate: SxProps<Theme> = {
+  ml: '15px',
   fontWeight: 300,
   opacity: 0.8,
 }

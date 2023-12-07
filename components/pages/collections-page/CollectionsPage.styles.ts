@@ -11,5 +11,6 @@ export const collectionsContainer: SxProps<Theme> = {
 }
 
 export const collectionCard: SxProps<Theme> = {
-  width: '30%'
+  width: '50%',
+  height: 'fit-content',
 }

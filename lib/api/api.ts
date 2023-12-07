@@ -6,6 +6,7 @@ import {Collection} from "../../types/Collection";
 import axios from "axios";
 import { Painting } from "../../types/Painting";
 import {User} from "../../types/User";
+import { Review } from "../../types/Review";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -175,3 +176,65 @@ export const getAllCollections = async (page: number, limit: number): Promise<Co
     console.error(`An error occurred while receiving all collections`, message);
   }
 };
+
+export const addReview = async (receiverId: number, comentatorId: number, text: string) => {
+  const now = new Date()
+  const day = now.getDate() < 10 ? `0${now.getDate()}` : now.getDate()
+  const month = now.getMonth() < 10 ? `0${now.getMonth() + 1}` : now.getMonth() + 1
+  const year = now.getFullYear()
+
+  try {
+    const response = await axios.post(`http://localhost:3001/reviews/sendReview/${receiverId}`, {
+      commentator_id: comentatorId,
+      upload_date: day + '.' + month + '.' + year,
+      comment_text: text
+    }, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    console.log(response)
+  } catch (message) {
+    console.error(`An error occurred while adding review to user with id: ${receiverId}`, message);
+  }
+};
+
+export const deleteReview = async (reviewId: number) => {
+  try {
+    const response = await axios.delete(`http://localhost:3001/reviews/${reviewId}/delete`, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response
+  } catch (message) {
+    console.error(`An error occurred while deleting review with id: ${reviewId}`, message);
+  }
+};
+
+export const getAllReview = async (receiverId: number): Promise<Review[]> => {
+  try {
+    const response = await axios.get(`http://localhost:3001/reviews/${receiverId}/getAll`);
+    console.log(response.data.result)
+    return response.data.result
+  } catch (message) {
+    console.error(`An error occurred while receiving all reviews for user with id: ${receiverId}`, message);
+  }
+};
+
+export const buyCollection = async (collectionId: number, buyerId: number, sellerId: number): Promise<string> => {
+  try {
+    const response = await axios.post(`http://localhost:3001/payment/${collectionId}/buy`, {
+      buyer_id: buyerId,
+      seller_id: sellerId,
+    }, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
+    return response.data.accessToken
+  } catch (message) {
+    console.error(`An error occurred while buying collection with id: ${collectionId}`, message);
+  }
+};
+

@@ -12,7 +12,7 @@ const CollectionsPage = () => {
   const [collections, setCollections] = useState<Collection[]>(null);
   useEffect(() => {
     const fetchData = async () => {
-      const result = await getAllCollections(1, 10)
+      const result = await getAllCollections(1, 15)
       setCollections(result);
       console.log(collections)
     };

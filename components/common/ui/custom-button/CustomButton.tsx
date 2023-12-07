@@ -1,5 +1,5 @@
 import {Box, Button, SxProps, Theme, Typography} from "@mui/material";
-import {FC, MouseEventHandler, ReactNode} from "react";
+import {FC, FormEventHandler, MouseEventHandler, ReactNode,} from "react";
 import * as styles from './CustomButton.styles'
 import mergeSx from "../../../../lib/utils/MergeSxStylesUtil";
 import {ButtonColor, ButtonSize, ButtonVariant} from "./types";
@@ -27,10 +27,11 @@ const CustomButton: FC<ButtonProps> = (
     size = ButtonSize.MEDIUM,
     icon,
 		sx= {},
+    onClick,
 		...rest
 	}) => {
 	return (
-		<Button className={className} sx={mergeSx(styles.button(color, variant, size), sx)} {...rest}>
+		<Button className={className} sx={mergeSx(styles.button(color, variant, size), sx)} {...rest} onClick={onClick}>
       {icon && <Box sx={{width: '30px'}}>{icon}</Box>}
       <Typography sx={styles.text(size)}>{text}</Typography>
     </Button>

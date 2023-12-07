@@ -2,18 +2,21 @@
 
 import {FC, useContext, useEffect, useState} from "react";
 import {Collection} from "../../../types/Collection";
-import {Box, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
+import {Box, Modal, Popover, ToggleButton, ToggleButtonGroup, Typography} from "@mui/material";
 import Image from "next/image";
 import {UserContext} from "../../../lib/hooks/use-authentication/useAuthentication";
-
-import * as styles from './CollectionPage.styles'
 import CustomButton from "../../common/ui/custom-button/CustomButton";
-import {editCollection, getCollection} from "../../../lib/api/api";
+import {buyCollection, editCollection, getCollection} from "../../../lib/api/api";
 import pesPatron from "../../../public/icons/dog.png";
-import {ButtonVariant} from "../../common/ui/custom-button/types";
+import {ButtonSize, ButtonVariant} from "../../common/ui/custom-button/types";
 import PaintingCard from "../../common/ui/painting-card/PaintingCard";
 import CustomInput from "../../common/ui/custom-input/CustomInput";
-import { checkUpdatedValues } from "./utils/checkUpdatedValues";
+import {checkUpdatedValues} from "./utils/checkUpdatedValues";
+
+import * as styles from './CollectionPage.styles'
+import stylesCSS from './CollectionPage.module.scss'
+import Link from "next/link";
+import {useRouter} from "next/navigation";
 
 interface CollectionPageProps {
   userId: number,
@@ -29,7 +32,12 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
   })
   const [status, setStatus] = useState(false);
   const [pageErrors, setPageErrors] = useState([])
-  const { user } = useContext(UserContext)
+  const [openPaintingModal, setOpenPaintingModal] = useState(false)
+  const [currentPainting, setCurrentPainting] = useState('')
+  const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null);
+  const openBuyPopup = Boolean(anchorEl);
+  const router = useRouter();
+  const { user , update } = useContext(UserContext)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -71,6 +79,30 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
      }
    }
 
+  const handleOpenModal = (imageUrl: string) => {
+    setCurrentPainting(imageUrl)
+    setOpenPaintingModal(true);
+  }
+  const handleCloseModal = () => {
+    setCurrentPainting('')
+    setOpenPaintingModal(false);
+  }
+
+  const openPopup = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClosePopup = () => {
+    setAnchorEl(null);
+  };
+
+  const handleBuy = async () => {
+    const token = await buyCollection(+collection.id, user.id, collection.author_id)
+    update(token)
+    setAnchorEl(null);
+    router.push('/account')
+  };
+
   return (
     <Box>
       {collection &&
@@ -79,11 +111,16 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
             <img
               src={collection.preview_image_url}
               alt={collection.name}
-              style={{width: 'auto', height: '320px', borderRadius: '10px'}}
+              className={stylesCSS['collectionPreview']}
             />
             <Box sx={styles.textBlock}>
               <Typography sx={styles.collectionHeader}>Collection "{collection.name}"</Typography>
-              <Typography sx={styles.otherText}>Author: {collection.author_name}</Typography>
+              <Typography sx={styles.otherText}>
+                Author:
+                <Link href={`/user/${collection.author_id}`} className={stylesCSS['authorLink']}>
+                  {collection.author_name}
+                </Link>
+              </Typography>
               <Typography sx={styles.otherText}>Creation date: {collection.upload_date}</Typography>
               {isAuthor ?
                 <CustomInput
@@ -108,6 +145,7 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
                   object={collectionData}
                   setObject={setCollectionData}
                   sx={{mb: '8px'}}
+                  multiline={true}
                 />
                 :
                 <Typography sx={styles.otherText}>Tags: {collection.tags.join(' ')}</Typography>
@@ -129,18 +167,55 @@ const CollectionPage: FC<CollectionPageProps> = ({userId, collectionId}) => {
                   ))}
                 </Box>
                 :
-                <CustomButton text={'Buy'} variant={ButtonVariant.CONTAINED}/>
+                <Box>
+                  <CustomButton
+                    text={'Buy'}
+                    variant={ButtonVariant.CONTAINED}
+                    onClick={openPopup}
+                    sx={{width: '100%'}}
+                  />
+                  <Popover
+                    open={openBuyPopup}
+                    anchorEl={anchorEl}
+                    onClose={handleClosePopup}
+                    anchorOrigin={{
+                      vertical: 'bottom',
+                      horizontal: 'center',
+                    }}
+                    transformOrigin={{
+                      vertical: 'top',
+                      horizontal: 'center',
+                    }}
+                  >
+                    <Box sx={{ p: 2 }}>
+                      <Typography sx={{mb: '10px'}}>Want to buy this collection?</Typography>
+                      <CustomButton
+                        text={'I want it'}
+                        variant={ButtonVariant.OUTLINED}
+                        size={ButtonSize.SMALL}
+                        sx={{width: '100%'}}
+                        onClick={handleBuy}
+                      />
+                    </Box>
+                  </Popover>
+                </Box>
               }
             </Box>
           </Box>
           <Typography sx={styles.divider}>Collection paintings</Typography>
           <Box sx={styles.paintingsBlock}>
             {collection.Paintings && collection.Paintings.map((painting, index) => (
-              <Box key={index}>
+              <Box key={index} onClick={() => handleOpenModal(painting.image_url)}>
                 <PaintingCard painting={painting}/>
               </Box>
             ))}
           </Box>
+          <Modal
+            open={openPaintingModal}
+            onClose={handleCloseModal}
+          >
+            <img src={currentPainting} alt={'painting modal'} className={stylesCSS['modalPainting']}/>
+          </Modal>
         </Box>
       }
     </Box>

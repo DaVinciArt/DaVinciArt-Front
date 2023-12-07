@@ -1,6 +1,12 @@
 export type Review = {
-  author_username: string;
+  id: number
+  commentator_id: string;
+  commentator: {
+    avatar: string,
+    id: number,
+    username: string,
+  }
   receiver_id: number;
-  creation_date: string;
-  review_body: string;
+  upload_date: string;
+  comment_text: string;
 }
