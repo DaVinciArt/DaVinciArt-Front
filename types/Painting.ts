@@ -3,5 +3,5 @@ export type Painting = {
   collection_id?: number,
   name: string,
   image_url: string,
-  image_file?: Blob,
+  image_file?: File,
 }

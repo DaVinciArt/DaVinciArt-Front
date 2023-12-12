@@ -21,7 +21,7 @@ interface AddCollectionTabProps {
 
 const AddCollectionTab: FC<AddCollectionTabProps> = ({userID}) => {
   const router = useRouter();
-  const [previewFile, setPreviewFile] = useState<Blob | null>(null);
+  const [previewFile, setPreviewFile] = useState<File | null>(null);
   const [previewURL, setPreviewURL] = useState('');
   const [collectionParams, setCollectionParams] = useState({
     name: '',

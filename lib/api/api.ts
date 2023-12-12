@@ -58,11 +58,9 @@ export const createCollection = async (
   formData.append('preview', collectionPreview, 'preview' + Date.now() + '.' + collectionPreview.type.split('/')[1]);
 
   paintings.forEach((painting, index) => {
-    formData.append(`paintings[${index}][name]`, painting.name);
-    formData.append(`paintings[${index}][image]`,
-      painting.image_file,
-      `paintings[${index}][name]` + Date.now() + '.' + painting.image_file.type.split('/')[1]);
-  });
+    formData.append(`image[${index}]`, painting.name);
+    formData.append(`image[${index}]`, painting.image_file
+    )});
 
   try {
     return await axios.post(`http://localhost:3001/user/${userId}/collection/add`, formData, {
