@@ -4,9 +4,9 @@ import StorageUtil from "../utils/StorageUtil";
 import {NewCollection} from "../../types/NewCollection";
 import {Collection} from "../../types/Collection";
 import axios from "axios";
-import { Painting } from "../../types/Painting";
+import {Painting} from "../../types/Painting";
 import {User} from "../../types/User";
-import { Review } from "../../types/Review";
+import {Review} from "../../types/Review";
 
 
 export const registerUser = async (user: NewUser) => {
@@ -129,7 +129,11 @@ export const deleteUser = async (userId: number) => {
 
 export const getTopFive = async (): Promise<Collection[]> => {
   try {
-    const response = await axios.get(`http://localhost:3001/collection/getTopFive`);
+    const response = await axios.get(`http://localhost:3001/collection/getTopFive`,{
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
     return response.data
   } catch (message) {
     console.error(`An error occurred while receiving the most popular collections`, message);
@@ -159,7 +163,11 @@ export const editCollection = async (
 
 export const getAuthor = async (userId: number): Promise<User> => {
   try {
-    const response = await axios.get(`http://localhost:3001/user/${userId}`);
+    const response = await axios.get(`http://localhost:3001/user/${userId}`,{
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
     return response.data
   } catch (message) {
     console.error(`An error occurred while receiving author with id: ${userId}`, message);
@@ -168,7 +176,11 @@ export const getAuthor = async (userId: number): Promise<User> => {
 
 export const getAllCollections = async (page: number, limit: number): Promise<Collection[]> => {
   try {
-    const response = await axios.get(`http://localhost:3001/collection/getPopular?page=${page}&limit=${limit}`);
+    const response = await axios.get(`http://localhost:3001/collection/getPopular?page=${page}&limit=${limit}`, {
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
     return response.data.collections
   } catch (message) {
     console.error(`An error occurred while receiving all collections`, message);
@@ -199,12 +211,11 @@ export const addReview = async (receiverId: number, comentatorId: number, text: 
 
 export const deleteReview = async (reviewId: number) => {
   try {
-    const response = await axios.delete(`http://localhost:3001/reviews/${reviewId}/delete`, {
+    return await axios.delete(`http://localhost:3001/reviews/${reviewId}/delete`, {
       headers: {
         'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
       }
-    });
-    return response
+    })
   } catch (message) {
     console.error(`An error occurred while deleting review with id: ${reviewId}`, message);
   }
@@ -212,7 +223,11 @@ export const deleteReview = async (reviewId: number) => {
 
 export const getAllReview = async (receiverId: number): Promise<Review[]> => {
   try {
-    const response = await axios.get(`http://localhost:3001/reviews/${receiverId}/getAll`);
+    const response = await axios.get(`http://localhost:3001/reviews/${receiverId}/getAll`,{
+      headers: {
+        'Authorization': `Bearer ${StorageUtil.getAccessToken()}`
+      }
+    });
     console.log(response.data.result)
     return response.data.result
   } catch (message) {
